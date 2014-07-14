@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.telefonica.com/schemas/UNICA/REST/common/v1" targetNamespace="http://www.telefonica.com/schemas/UNICA/REST/common/v1" elementFormDefault="qualified">
+
+    <xsd:complexType name="ClientExceptionType">
+        <xsd:annotation>
+            <xsd:documentation>Object returned by server in case of Client related faults</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="exceptionCategory">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:enumeration value="SVC"/>
+                        <xsd:enumeration value="POL"/>
+                        <xsd:enumeration value="SEC"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="exceptionId">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:int">
+                        <xsd:minInclusive value="0000"/>
+                        <xsd:maxInclusive value="9999"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="text" type="xsd:string"/>
+            <xsd:element name="variables" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ServerExceptionType">
+        <xsd:annotation>
+            <xsd:documentation>Object returned by server in case of Server related faults</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="exceptionCategory">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:enumeration value="SVR"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="exceptionId" type="xsd:int"/>
+            <xsd:element name="text" type="xsd:string"/>
+            <xsd:element name="variables" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="ClientException" type="tns:ClientExceptionType">
+        <xsd:annotation>
+            <xsd:documentation>Object for returned client related faults</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="ServerException" type="tns:ServerExceptionType">
+        <xsd:annotation>
+            <xsd:documentation>Object for returned server related faults</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+
+</xsd:schema>

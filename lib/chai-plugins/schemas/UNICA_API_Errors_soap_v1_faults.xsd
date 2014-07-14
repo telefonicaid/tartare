@@ -1,0 +1,28 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:uct="http://www.telefonica.com/schemas/UNICA/SOAP/common/v1"
+           xmlns:tns="http://www.telefonica.com/wsdl/UNICA/SOAP/common/v1/faults"
+           targetNamespace="http://www.telefonica.com/wsdl/UNICA/SOAP/common/v1/faults" >
+
+    <xs:import schemaLocation="UNICA_API_Errors_soap_v1_common.xsd" namespace="http://www.telefonica.com/schemas/UNICA/SOAP/common/v1"/>
+
+    <xs:element name="ServerException" type="tns:ServerExceptionType" />
+    <xs:complexType name="ServerExceptionType">
+        <xs:sequence>
+            <xs:element ref="uct:exceptionCategory" />
+            <xs:element ref="uct:exceptionId" />
+            <xs:element ref="uct:text" />
+            <xs:element ref="uct:variables" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="ClientException" type="tns:ClientExceptionType" />
+    <xs:complexType name="ClientExceptionType">
+        <xs:sequence>
+            <xs:element ref="uct:exceptionCategory" />
+            <xs:element ref="uct:exceptionId" />
+            <xs:element ref="uct:text" />
+            <xs:element ref="uct:variables" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>

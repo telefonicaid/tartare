@@ -1,0 +1,21 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="http://www.telefonica.com/schemas/UNICA/SOAP/common/v1"
+           targetNamespace="http://www.telefonica.com/schemas/UNICA/SOAP/common/v1"
+           elementFormDefault="qualified">
+
+
+    <xs:element name="exceptionCategory">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:enumeration value="SVR"/>
+                <xs:enumeration value="SVC"/>
+                <xs:enumeration value="POL"/>
+                <xs:enumeration value="SEC"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <xs:element name="exceptionId" type="xs:int"/>
+    <xs:element name="text" type="xs:string"/>
+    <xs:element name="variables" type="xs:string"/>
+
+</xs:schema>

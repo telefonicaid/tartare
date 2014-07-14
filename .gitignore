@@ -1,0 +1,14 @@
+# OS environments
+.DS_Store
+
+# IDE Config
+.idea
+
+# Source Code
+node_modules
+
+# Temporary merge files
+*.orig
+
+# npm
+npm-debug.log
