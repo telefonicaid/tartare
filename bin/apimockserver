@@ -1,0 +1,40 @@
+#!/usr/bin/env node
+
+'use strict';
+
+var optimist = require('optimist');
+var argv = optimist
+  .usage('\nUsage: apimockserver -a <admin_port> -p <port> [-s <ssl_port> -k <key_file> -c <cert_file>]')
+  .options('a', { alias: 'admin-port', describe: 'Administration port', demand: true })
+  .options('p', { alias: 'port', describe: 'API Mock Server port (HTTP)', demand: true })
+  .options('s', { alias: 'ssl-port', describe: 'API Mock Server port (HTTPS)' })
+  .options('k', { alias: 'key', describe: 'Private key file for HTTPS server' })
+  .options('c', { alias: 'cert', describe: 'Certificate file for HTTPS server' })
+  .options('t', { alias: 'timeout', describe: 'Server timeout (default: 2 min)' })
+  .argv;
+
+if ((argv.a && typeof(argv.a) !== 'number') ||
+    (argv.p && typeof(argv.p) !== 'number') ||
+    (argv.s && typeof(argv.s) !== 'number') ||
+    (argv.k && typeof(argv.k) !== 'string') ||
+    (argv.c && typeof(argv.c) !== 'string') ||
+    (argv.s && !(argv.k && argv.c)) ||
+    (argv.t && typeof(argv.t) !== 'number')) {
+  optimist.showHelp();
+  process.exit(1);
+}
+
+var settings = {};
+settings.adminPort = argv.a;
+settings.httpPort = argv.p;
+if (argv.s) {
+  settings.httpsPort = argv.s;
+  settings.httpsKeyPath = argv.k;
+  settings.httpsCertPath = argv.c;
+}
+if (argv.t) {
+  settings.timeout = argv.t;
+}
+
+require('../lib/apimock')(settings);
+

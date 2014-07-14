@@ -1,0 +1,55 @@
+{
+  "name": "tdaf-node-tartare",
+  "version": "0.1.0",
+  "description": "Gherkin-like Mocha extension and reporter, and testing tools library for Node.js",
+  "repository": {
+    "type": "git",
+    "url": "git@pdihub.hi.inet:TDAF/tdaf-node-tartare.git"
+  },
+  "engines": {
+    "node": "0.10.22"
+  },
+  "keywords": [
+    "tdaf",
+    "js",
+    "javascript",
+    "node.js",
+    "bdd",
+    "gherkin",
+    "tools",
+    "test",
+    "QA"
+  ],
+  "author": {
+    "name": "Jose Antonio Rodríguez Fernández",
+    "email": "jarf@tid.es"
+  },
+  "contributors": [
+    {
+      "name": "Jose Antonio Rodríguez Fernández",
+      "email": "jarf@tid.es"
+    },
+    {
+      "name": "Santiago Pérez Marín",
+      "email": "spmarin@tid.es"
+    }
+  ],
+  "dependencies": {
+    "mocha": "~1.14.0",
+    "underscore": "~1.5.2",
+    "cli-color": "~0.2.3",
+    "synchronize": "~0.5.4",
+    "chai": "~1.8.1",
+    "chai-json-schema": "~1.0.10",
+    "express": "~3.4.8",
+    "optimist": "~0.6.0",
+    "jsonschema": "~0.4.0",
+    "mustache": "~0.8.1",
+    "nedb": "~0.10.0",
+    "iconv-lite": "~0.2.11",
+    "request": "~2.33.0",
+    "node.extend": "~1.0.9",
+    "libxmljs": "~0.8.1",
+    "buffertools": "~2.0.1"
+  }
+}
