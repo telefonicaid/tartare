@@ -9,4 +9,6 @@ Gherkin-like Mocha extension and reporter, and testing tools library for Node.js
 * A generic API mock server
 * Utils for common tasks (helpers, constants, etc.)
 
+See a Tartare presentation [here](http://telefonicaid.github.io/tartare/presentation/).
+
 [On the name](http://www.coffeeandvanilla.com/gherkin-dill-sauce/)
