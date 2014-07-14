@@ -1,0 +1,749 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Tartare ~ Gherkin-like Mocha extension and reporter, and testing tools library for Node.js</title>
+
+		<meta name="description" content="Tartare: Gherkin-like Mocha extension and reporter, and testing tools library for Node.js">
+		<meta name="author" content="Jose Antonio Rodríguez (jarf@tid.es)">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>TARTARE</h1>
+					<h4>Gherkin-like Mocha extension and reporter,<br/>and testing tools library for Node.js</h4>
+					<p>
+						<small><a href="https://github.com/telefonicaid/tartare/" target="_blank">https://github.com/telefonicaid/tartare/</a></small>
+					</p>
+				</section>
+
+				<section>
+					<h2>WHAT</h2><br/>
+					<p>
+						Tartare is a BDD framework which<br/>extends Mocha to use Gherkin syntax.
+					</p>
+					<p>
+						It also provides useful tools for testing.
+					</p>
+				</section>
+
+				<section>
+					<h2>WHY</h2><br/>
+					<p>
+						By the time Tartare was born, BDD frameworks<br/>for Node.js didn't fit our needs:
+					</p>
+					<small>
+						<ul>
+							<li>Immature frameworks lacking key features (example tables)</li>
+							<li>Not using Mocha behind the scenes (unit testing is being done with Mocha)</li>
+							<li>Mocha itself use BDD but not Gherkin syntax</li>
+							<li>Asynchronous code may mess up steps implementation (callback hell)</li>
+						</ul>
+					</small>
+				</section>
+
+				<section>
+					<h2>GHERKIN SYNTAX</h2>
+				</section>
+
+				<section>
+					<h3>New keywords</h3>
+					<ul>
+						<li>feature</li>
+						<li>scenario</li>
+						<li>given</li>
+						<li>when</li>
+						<li>then</li>
+						<li>and</li>
+					</ul>
+				</section>
+
+				<section>
+					<h3>New before/after hooks</h3>
+					<ul>
+						<li>beforeAll</li>
+						<li>afterAll</li>
+						<li>beforeFeature</li>
+						<li>afterFeature</li>
+						<li>beforeEachScenario</li>
+						<li>afterEachScenario</li>
+						<li>beforeScenario</li>
+						<li>afterScenario</li>
+						<li>beforeEachVariant</li>
+						<li>afterEachVariant</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>New reporter</h2><br/>
+					<p>
+						Coloured output adapted to Gherkin syntax
+					</p>
+					<p>
+						Real stats and metrics counting<br/>features, scenarios, variants and steps
+					</p>
+					<img width="502" height="248" src="img/report_gherkin_metrics.png">
+				</section>
+
+				<section>
+					<h2>Using Tartare</h2><br/>
+					<h4>On your code</h4>
+					<pre><code class="javascript">
+var tartare = require('tdaf-node-tartare');
+					</code></pre>
+					<h4><br/>Running tests</h4>
+					<pre><code class="bash">
+$ mocha --reporter tdaf-node-tartare/gherkin --ui bdd ./acceptance
+					</code></pre>
+				</section>
+
+				<section>
+					<section>
+						<h2>Features</h2><br/>
+						<pre><code class="javascript">
+feature('Addition',
+		'In order to avoid silly mistakes',
+		'As a math idiot',
+		'I want to be told the sum of two numbers',
+		function() {
+
+});
+						</code></pre>
+					</section>
+
+					<section>
+						<h2>Scenarios</h2><br/>
+						<pre><code class="javascript">
+feature('Addition', function() {
+  scenario('Add two numbers', function() {
+
+  });
+});
+						</code></pre>
+					</section>
+
+					<section>
+						<h2>Steps</h2><br/>
+						<pre><code class="javascript">
+feature('Addition', function() {
+  scenario('Add two numbers', function() {
+    given('I have entered 50 into the calculator', function() {
+
+    });
+    and('I have entered 70 into the calculator', function() {
+
+    });
+    when('I press add', function() {
+
+    });
+    then('the result should be 120 on the screen', function() {
+
+    });
+  });
+});
+						</code></pre>
+					</section>
+
+					<section>
+						<h2>Report output</h2><br/>
+						<img width="583" height="254" src="img/report_gherkin_example.png">
+					</section>
+
+					<section>
+						<h2>Pending Scenarios</h2><br/>
+						<pre><code class="javascript">
+feature('Multiplication', function() {
+  scenario('Multiply two numbers');
+});
+						</code></pre>
+						<img width="375" height="130" src="img/report_gherkin_pending_scenario.png">
+					</section>
+
+				</section>
+
+				<section>
+					<section>
+						<h2>Variants</h2><br/>
+						<pre><code class="javascript">
+var dataset = [
+  { desc: '50 + 70 = 120', num1: 50, num2: 70, result: 120 },
+  { desc: '100 + 90 = 190', num1: 100, num2: 90, result: 190 },
+];
+
+feature('Addition', function() {
+  scenario('Add two numbers', dataset, function(variant) {
+    given('I have entered ' + variant.num1 + ' into the calculator', function() { });
+    and('I have entered ' + variant.num2 + ' into the calculator', function() { });
+    when('I press add', function() { });
+    then('the result should be ' + variant.result + ' on the screen', function() { });
+  });
+});
+						</code></pre>
+					</section>
+
+					<section>
+						<h2>Variants</h2><br/>
+						<img width="619" height="327" src="img/report_gherkin_variants.png">
+					</section>
+
+					<section>
+						<h2>Variants</h2><br/>
+						<h4 style="text-transform: none">SPECIAL FIELDS: tag, bugId, desc</h4><br/>
+						<pre><code class="javascript">
+var dataset = [
+  { tag: 'reviewed', bugId: 'JIRAID-264', desc: '50 + 70 = 120', num1: 50, num2: 70, result: 120 },
+];
+						</code></pre>
+						<img width="617" height="162" src="img/report_gherkin_variants_special.png">
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Before / After hooks</h2><br/>
+						<pre><code class="javascript" data-trim>
+var dataset = [
+  { desc: '50 + 70 = 120', num1: 50, num2: 70, result: 120 },
+  { desc: '100 + 90 = 190', num1: 100, num2: 90, result: 190 },
+];
+
+feature('Addition', function() {
+  scenario('Add two numbers', dataset, function(variant) {
+    beforeEachVariant(function() {
+      clearScreen();
+    });
+    given('I have entered ' + variant.num1 + ' into the calculator', function() { });
+    and('I have entered ' + variant.num2 + ' into the calculator', function() { });
+    when('I press add', function() { });
+    then('the result should be ' + variant.result + ' on the screen', function() { });
+  });
+});
+						</code></pre>
+					</section>
+
+					<section>
+						<h2>Before / After hooks</h2><br/>
+						<pre><code class="javascript">
+feature('Addition', function() {
+  beforeFeature(function() {
+    switchOnCalculator();
+  });
+  scenario('Add two numbers', function() {
+    given('I have entered 50 into the calculator', function() { });
+    and('I have entered 70 into the calculator', function() { });
+    when('I press add', function() { });
+    then('the result should be 120 on the screen', function() { });
+  });
+});
+						</code></pre>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Sync vs Async</h2><br/>
+						<p>
+							Node.js code is essentially asynchronous
+						</p>
+						<p>
+							Though many tests look better using synchronous code
+						</p>
+
+					</section>
+
+					<section>
+						<h2>Sync code</h2><br/>
+						<h4>Writing sync code is straightforward</h4><br/>
+						<pre><code class="javascript">
+  scenario('Add two numbers', function() {
+    given('I have entered 50 into the calculator', function() {
+      num1 = 50;
+    });
+    and('I have entered 70 into the calculator', function() { });
+    when('I press add', function() { });
+    then('the result should be 120 on the screen', function() { });
+  });
+						</code></pre>
+					</section>
+
+					<section>
+						<h3>Converting Async into Sync</h3><br/>
+						<p>This module has steps implementation (using async code)</p>
+						<pre><code class="javascript">
+var fs = require('fs');
+
+module.exports = {
+  readConf: function readConf(cb) {
+    fs.readFile('config.json', function(err, data) {
+      if (err) {
+        return cb(err);
+      }
+      cb(null, JSON.parse(data));
+    });
+  }
+};
+						</code></pre>
+					</section>
+
+					<section>
+						<h3>Converting Async into Sync</h3><br/>
+						<p>Without Tartare</p>
+						<pre><code class="javascript">
+var steps = require('./steps');
+
+describe('Configuration', function() {
+  describe('Read configuration', function() {
+    var config = null;
+    [...]
+    it('I read the config file', function(done) {
+      steps.readConf(function(err, cfg) {
+        config = cfg;
+        done();
+      });
+    });
+    [...]
+  });
+});
+						</code></pre>
+					</section>
+
+					<section>
+						<h3>Converting Async into Sync</h3><br/>
+						<p>Now we can use async functions as if it were sync</p>
+						<pre><code class="javascript">
+var tartare = require('tdaf-node-tartare');
+var steps = require('./steps');
+
+tartare.synchronize(steps);
+
+feature('Configuration', function() {
+  scenario('Read configuration', function() {
+    var config = null;
+    [...]
+    when('I read the config file', function() {
+      config = steps.readConf();
+    });
+    [...]
+  });
+});
+						</code></pre>
+					</section>
+
+					<section>
+						<h3>What if I need to use async code?</h3><br/>
+						<p>Call the .async version of the step keyword</p>
+						<pre><code class="javascript" data-trim>
+var tartare = require('tdaf-node-tartare');
+var steps = require('./steps');
+
+feature('Configuration', function() {
+  scenario('Read configuration', function() {
+    var config = null;
+    [...]
+    when.async('I read the config file', function(done) {
+      steps.readConf(function(err, cfg) {
+        config = cfg;
+        done();
+      });
+    });
+    [...]
+  });
+});
+						</code></pre>
+						<p>It also works with before and after hooks</p>
+					</section>
+
+				</section>
+
+				<section>
+					<h2>Skip and Only</h2><br/>
+					<p>You can use the .skip and .only version<br/>of <b>feature</b> and <b>scenario</b> keywords</p>
+					<pre><code class="javascript">
+feature.only('Addition', function() {
+  scenario.skip('Add two numbers', function() {
+    [...]
+  });
+});
+					</code></pre>
+					<p>It also works with <b>variants</b> including<br/>the fields <b>skip</b> or <b>only</b> set to a truthy value</p>
+					<pre><code class="javascript">
+var dataset = [
+  { skip: true, desc: '50 + 70 = 120', num1: 50, num2: 70, result: 120 },
+  { only: true, desc: '100 + 90 = 190', num1: 100, num2: 90, result: 190 },
+];
+					</code></pre>
+				</section>
+
+				<section>
+					<h2> TARTARE AS A QA LIBRARY</h2>
+				</section>
+
+				<section>
+					<section>
+						<h2>Chai Plugins</h2>
+						<p>
+							Chai is a BDD assertion library that can be<br/>
+							paired with Mocha (and Tartare) and can be<br/>
+							extended with our own assertions
+						</p><br/>
+						<pre><code class="javascript">
+expect('test').to.be.a('string');
+expect([1,2,3]).to.include(2);
+expect(var).to.be.null;
+expect([]).to.be.empty;
+expect('foo').to.have.length.above(2);
+expect(7).to.be.within(5,10);
+expect({ foo: 1, bar: 2 }).to.have.keys(['foo', 'bar']);
+						</code></pre>
+					</section>
+
+					<section>
+						<h2>Tartare Chai Plugins</h2>
+						<h4>HTTP Chai plugins</h4>
+						<pre><code class="javascript">
+expect(req).to.have.httpMethod('POST');
+expect(res).to.have.httpStatusCode(200);
+expect(res).to.have.httpHeaders(['content-type', 'x-forwarded-for']);
+expect(req).to.have.httpHeaders({
+  'content-type': 'application/json',
+  'x-forwarded-for': '127.0.0.1'
+}]);
+expect(req).to.have.httpBody(expectedBody);
+expect(res).to.be.httpChunked;
+expect(res).to.have.httpCharset('utf-8');
+						</code></pre>
+					</section>
+
+					<section>
+						<h2>Tartare Chai Plugins</h2>
+						<h4>UNICA Chai plugins</h4>
+						<pre><code class="javascript">
+expect(res).to.be.a.wellFormedJsonApiResponse;
+expect(res).to.be.a.wellFormedXMLApiResponse;
+expect(res).to.be.a.wellFormedSoap11ApiResponse;
+expect(res).to.be.a.jsonApiError(404, 'SVC1001');
+expect(res).to.be.an.xmlApiError(404, 'SVC1001', 'v1');
+						</code></pre>
+					</section>
+
+				</section>
+
+				<section>
+					<section>
+						<h2>Collections</h2>
+						<h4>An HTTP REST client to make easier testing REST APIs</h4><br/>
+						<p>
+							Let's have an API in http://someserver.com/provision/v1 with the following CRUD resources:
+						</p>
+						<ul>
+							<li>apps</li>
+							<li>developers</li>
+							<li>products</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Collections</h2><br/>
+						<p>
+							Creating an API client based on Tartare collections
+						</p>
+						<pre><code class="javascript" data-trim>
+var collections = require('tdaf-node-tartare').collections;
+var provisionApi = collections.createCollectionsGroup({
+  baseUrl: 'http://someserver.com/provision/v1'
+});
+var applications = provisionApi.createCollection('apps/');
+
+applications.get({ id: '1d1272b3-2bde-470a-8925-0bbd74a8516f' }, function(err, res) {
+  if (err) {
+    console.log(err);
+  } else if (res.statusCode !== 200) {
+    console.log('ERROR trying to read an application:', res.statusCode, res.body)));
+  } else {
+    console.log(JSON.parse(res.body));
+  }
+});
+						</code></pre>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>API mock</h2>
+						<h4>A mock server ready to behave as an API server</h4><br/>
+						<p>Start the mock</p>
+						<pre><code class="bash">
+$ &lt;tartare_root&gt;/bin/apimockserver --admin-port 8080 -port 8000
+						</code></pre>
+						<ul>
+							<li><i>admin-port</i>: port used to configure mock behaviour</li>
+							<li><i>port</i>: port where the mock expects service requests</li>
+						</ul>
+						<br/><br/>
+						<p>It also supports HTTPS mode</p>
+					</section>
+
+					<section>
+						<h2>API mock</h2>
+						<h4>Configuring the mock</h4><br/>
+						<pre><code class="http" data-trim>
+POST /admin/v1 HTTP/1.1
+Host: server.com
+Content-Type: application/json
+Content-Length: 126
+
+{
+  "method": "GET",
+  "path": "/provision/v1/apps/1d1272b3-2bde-470a-8925-0bbd74a8516f",
+  "response": {
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json",
+      "Unica-Correlator": "{{{headers.unica-correlator}}}"
+    },
+    "body": "[Application details]",
+    "delay": 200,
+    "chunked": true
+  }
+}
+						</code></pre>
+					</section>
+
+					<section>
+						<h2>API mock</h2>
+						<h4>Asking for the last request for a pair method-path</h4><br/>
+						<pre><code class="http" data-trim>
+GET /admin/v1/lastrequests?method=GET HTTP/1.1
+Host: server.com
+						</code></pre>
+						<pre><code class="http" data-trim>
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 126
+
+[
+  {
+    "method": "GET",
+    "requestUri": "/provision/v1/apps/1d1272b3-2bde-470a-8925-0bbd74a8516f",
+    "path": "/provision/v1/apps/1d1272b3-2bde-470a-8925-0bbd74a8516f",
+    "query": null,
+    "headers": {
+      "Host": "server.com"
+      "Unica-Correlator": "13cf5c4f-3670-46e1-9b7f-931c8ef17236"
+    },
+    "charset": null,
+    "chunked": false,
+    "body": ""
+  }
+]
+						</code></pre>
+					</section>
+
+					<section>
+						<h2>API mock</h2>
+						<h4 style="text-transform: none">ApiMockAdminClient: making easier mock configuration</h4><br/>
+						<pre><code class="javascript" data-trim>
+var mockAdminClient = tartare.apiMockAdminClient.createClient('localhost', 8080);
+mockAdminClient.configs.create({
+  method: 'GET',
+  path: '/provision/v1/apps/1d1272b3-2bde-470a-8925-0bbd74a8516f',
+  response: {
+    statusCode: 200,
+    headers: {
+      'Content-Type': 'application/json',
+      'Unica-Correlator': '{{{headers.unica-correlator}}}'
+    },
+    body: JSON.stringify(myApp),
+    delay: 200,
+    chunked: true
+  }
+}, function(err, res) {
+});
+						</code></pre>
+					</section>
+
+				</section>
+
+				<section>
+					<section>
+						<h2>Server utils</h2><br/>
+						<h4>A set of functions to manage servers<br/>configuration, start and stop</h4><br/>
+						<ul>
+							<li><b>renderConfigFile</b>: create config files from a mustache template and a config object.</li>
+							<li><b>[start|stop]Server</b>: start/stop any server. Starting a server is synchronous
+								and it can wait for the to start by timeout, or looking for a string in the stdout/stderr.</li>
+							<li><b>killServersByTpcPorts</b>: Kill all processes listening to the given ports (supports RHEL, Ubuntu and OSX).</li>
+							<li><b>[start|stop]ApiMockServer</b>: start/stop the API Mock.</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>Server utils</h2>
+						<h4 style="text-transform: none">renderConfigFile</h4><br/>
+						<p>Config Template</p>
+						<pre><code class="json" data-trim>
+"server": {
+  "address": "{{{serverCfg.address}}}",
+  "port": {{{serverCfg.port}}}
+}
+						</code></pre>
+						<p>Config Object</p>
+						<pre><code class="javascript" data-trim>
+var serverCfg = {
+  address: 'myserver.com',
+  port: 8080
+}
+						</code></pre>
+						<p>Resulting Config</p>
+						<pre><code class="json" data-trim>
+"server": {
+  "address": "myserver.com",
+  "port": 8080
+}
+						</code></pre>
+					</section>
+
+				</section>
+
+				<section>
+					<h2>Native Types Extensions</h2><br/>
+						<pre><code class="javascript" data-trim>
+'string'.startsWith('str'); // => true
+'string'.endsWith('ing');   // => true
+'copyme'.repeat(5);         // => 'copymecopymecopymecopymecopyme'
+RegExp.escape('^\(a+)*/$'); // => '\\^\\(a\\+\\)\\*\\/\\$'
+						</code></pre>
+				</section>
+
+				<section>
+					<h1>THE END</h1>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				// Display controls in the bottom right corner
+				controls: true,
+
+				// Display a presentation progress bar
+				progress: true,
+
+				// Display the page number of the current slide
+				slideNumber: true,
+
+				// Push each slide change to the browser history
+				history: false,
+
+				// Enable keyboard shortcuts for navigation
+				keyboard: true,
+
+				// Enable the slide overview mode
+				overview: true,
+
+				// Vertical centering of slides
+				center: true,
+
+				// Enables touch navigation on devices with touch input
+				touch: true,
+
+				// Loop the presentation
+				loop: false,
+
+				// Change the presentation direction to be RTL
+				rtl: false,
+
+				// Turns fragments on and off globally
+				fragments: true,
+
+				// Flags if the presentation is running in an embedded mode,
+				// i.e. contained within a limited portion of the screen
+				embedded: false,
+
+				// Number of milliseconds between automatically proceeding to the
+				// next slide, disabled when set to 0, this value can be overwritten
+				// by using a data-autoslide attribute on your slides
+				autoSlide: 0,
+
+				// Stop auto-sliding after user input
+				autoSlideStoppable: true,
+
+				// Enable slide navigation via mouse wheel
+				mouseWheel: false,
+
+				// Hides the address bar on mobile devices
+				hideAddressBar: true,
+
+				// Opens links in an iframe preview overlay
+				previewLinks: false,
+
+				// Transition style
+				transition: 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Transition speed
+				transitionSpeed: 'default', // default/fast/slow
+
+				// Transition style for full page slide backgrounds
+				backgroundTransition: 'default', // default/none/slide/concave/convex/zoom
+
+				// Number of slides away from the current that are visible
+				viewDistance: 3,
+
+				// Parallax background image
+				parallaxBackgroundImage: '', // e.g. "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'"
+
+				// Parallax background size
+				parallaxBackgroundSize: '', // CSS syntax, e.g. "2100px 900px"
+
+
+				theme: 'sky', // available themes are in /css/theme
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					//{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					//{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					//{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
