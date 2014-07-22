@@ -58,4 +58,3 @@ if (argv.t) {
 }
 
 require('../lib/apimock')(settings);
-

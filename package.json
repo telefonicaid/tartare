@@ -1,13 +1,13 @@
 {
   "name": "tdaf-node-tartare",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Gherkin-like Mocha extension and reporter, and testing tools library for Node.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:telefonicaid/tartare.git"
   },
   "engines": {
-    "node": "0.10.26"
+    "node": "0.10.28"
   },
   "license": "Apache-2.0",
   "author": {
@@ -38,11 +38,11 @@
   "dependencies": {
     "mocha": "1.18.2",
     "underscore": "1.6.0",
-    "cli-color": "0.2.3",
-    "synchronize": "0.7.0",
+    "cli-color": "0.3.2",
+    "synchronize": "0.9.3",
     "chai": "1.9.1",
     "chai-json-schema": "1.1.0",
-    "express": "3.5.1",
+    "express": "3.5.2",
     "optimist": "0.6.1",
     "jsonschema": "0.4.0",
     "mustache": "0.8.1",
@@ -50,7 +50,7 @@
     "iconv-lite": "0.2.11",
     "request": "2.34.0",
     "node.extend": "1.0.10",
-    "libxmljs": "0.8.1",
+    "libxmljs": "0.9.0",
     "buffertools": "2.1.2"
   }
 }
