@@ -1,5 +1,14 @@
 # RELEASE NOTES
 
+
+## v0.3.1 / 23 Jul 2014
+
+### Gherkin framework and reporter
+
+A workaround has been added to Tartare in order to support [selenium-webdriver](https://www.npmjs.org/package/selenium-webdriver)
+(or other frameworks using selenium-webdriver) that is not returning the created test when calling the Mocha's `it` function.
+
+
 ## v0.3.0 / 22 Jul 2014
 
 ### Gherkin framework and reporter
@@ -13,7 +22,7 @@ The full list of available hooks and the allowed usage is as follows:
 | Hook name                            | Usage                                 |
 |--------------------------------------|---------------------------------------|
 | beforeAll/afterAll                   | Top level (outside Features)          |
-| beforeFeature/afterFeature           | Top level (outside Features)          |
+| beforeFeature/afterFeature           | Inside Features and outside Scenarios |
 | beforeEachScenario/afterEachScenario | Inside Features and outside Scenarios |
 | beforeScenario                       | Inside Scenarios                      |
 | beforeEachVariant/afterEachVariant   | Inside Scenarios                      |
@@ -36,4 +45,3 @@ Some issues have been fixed in the Gherkin reporter:
 
 * Fixed a bug that made `startServer` function to fail when `startupMessages` parameter is an empty array.
 * `synchronize` function now allows to synchronize nested functions in modules.
-
