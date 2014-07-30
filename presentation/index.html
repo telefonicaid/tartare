@@ -102,25 +102,36 @@
 				</section>
 
 				<section>
-					<h2>New reporter</h2><br/>
-					<p>
-						Coloured output adapted to Gherkin syntax
-					</p>
-					<p>
-						Real stats and metrics counting<br/>features, scenarios, variants and steps
-					</p>
-					<img width="502" height="248" src="img/report_gherkin_metrics.png">
+					<section>
+						<h2>New reporters</h2>
+						<h4>Gherkin reporter for console</h4><br/>
+						<p>
+							Coloured output adapted to Gherkin syntax
+						</p>
+						<p>
+							Real stats and metrics counting<br/>features, scenarios, variants and steps
+						</p>
+						<img width="502" height="248" src="img/report_gherkin_metrics.png">
+					</section>
+					<section>
+						<h2>New reporters</h2>
+						<h4>Markdown Gherkin reporter</h4>
+						<img width="500" src="img/report_gherkin_markdown.png">
+					</section>
 				</section>
 
 				<section>
 					<h2>Using Tartare</h2><br/>
 					<h4>On your code</h4>
 					<pre><code class="javascript">
-var tartare = require('tdaf-node-tartare');
+var tartare = require('tartare');
 					</code></pre>
 					<h4><br/>Running tests</h4>
 					<pre><code class="bash">
-$ mocha --reporter tdaf-node-tartare/gherkin --ui bdd ./acceptance
+$ mocha --reporter tartare/gherkin --ui bdd ./acceptance
+					</code></pre>
+					<pre><code class="bash">
+$ mocha --reporter tartare/gherkin-md --ui bdd ./acceptance
 					</code></pre>
 				</section>
 
@@ -338,7 +349,7 @@ describe('Configuration', function() {
 						<h3>Converting Async into Sync</h3><br/>
 						<p>Now we can use async functions as if it were sync</p>
 						<pre><code class="javascript">
-var tartare = require('tdaf-node-tartare');
+var tartare = require('tartare');
 var steps = require('./steps');
 
 tartare.synchronize(steps);
@@ -358,16 +369,19 @@ feature('Configuration', function() {
 
 					<section>
 						<h3>What if I need to use async code?</h3><br/>
-						<p>Call the .async version of the step keyword</p>
+						<ol>
+							<li>Add a callback (usually named <code>done</code>) to the step keyword</li>
+							<li>Invoke that callback when you test is complete</li>
+						</ol>
 						<pre><code class="javascript" data-trim>
-var tartare = require('tdaf-node-tartare');
+var tartare = require('tartare');
 var steps = require('./steps');
 
 feature('Configuration', function() {
   scenario('Read configuration', function() {
     var config = null;
     [...]
-    when.async('I read the config file', function(done) {
+    when('I read the config file', function(done) {
       steps.readConf(function(err, cfg) {
         config = cfg;
         done();
@@ -474,7 +488,7 @@ expect(res).to.be.an.xmlApiError(404, 'SVC1001', 'v1');
 							Creating an API client based on Tartare collections
 						</p>
 						<pre><code class="javascript" data-trim>
-var collections = require('tdaf-node-tartare').collections;
+var collections = require('tartare').collections;
 var provisionApi = collections.createCollectionsGroup({
   baseUrl: 'http://someserver.com/provision/v1'
 });
@@ -559,6 +573,7 @@ Content-Length: 126
     },
     "charset": null,
     "chunked": false,
+    "connection": { "remoteAddress": "192.168.0.101, "remotePort": 11487 },
     "body": ""
   }
 ]
