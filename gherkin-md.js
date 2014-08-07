@@ -21,15 +21,8 @@
 
 'use strict';
 
-var LABELS = {
-  feature: 'Feature',
-  scenario: 'Scenario',
-  variant: 'Variant',
-  given: 'Given',
-  when: 'When',
-  then: 'Then',
-  and: 'And'
-};
+/**
+ * Mocha reporter that outputs Gherkin syntax in Markdown format
+ */
 
-
-module.exports.LABELS = LABELS;
+module.exports = require('./lib/mocha-gherkin/reporters/gherkin-md');

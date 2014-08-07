@@ -1,5 +1,21 @@
 # RELEASE NOTES
 
+## v0.4.0 / 7 Aug 2014
+
+### Gherkin framework and reporter
+
+* A new Gherkin reporter has been added that outputs Markdown format. Useful to upload the test report to Github.
+* The console Gherkin reporter now supports color schemes for dark and clear backgrounds.
+  Set an environment variable `TARTARE_THEME` to `dark` or `clear`.
+* Features having the same title are considered the same feature when computing stats.
+  Moreover the Markdown Gherkin reporter merges all scenarios whose feature share the same title.
+* Better support for features and steps without implementation (that is, without a callback function),
+  including a better integration with [selenium-webdriver](https://www.npmjs.org/package/selenium-webdriver).
+
+### HTTP helpers and chai plugins
+* Fixed a bug that prevented collections module from preserving the HTTP headers name casing.
+* Fixed a bug that made `httpAllowHeader` assertion to fail in some corner cases.
+
 
 ## v0.3.1 / 23 Jul 2014
 

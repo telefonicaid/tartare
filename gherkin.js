@@ -26,4 +26,4 @@
  * and calculates real metrics based on Features, Scenarios and Variants
  */
 
-module.exports = require('./lib/mocha-gherkin/mocha-gherkin-reporter').GherkinReporter;
+module.exports = require('./lib/mocha-gherkin/reporters/gherkin');

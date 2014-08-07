@@ -21,4 +21,4 @@
 
 'use strict';
 
-module.exports = require('./lib/tdaf-node-tartare');
+module.exports = require('./lib/tartare');
