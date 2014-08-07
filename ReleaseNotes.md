@@ -1,6 +1,6 @@
 # RELEASE NOTES
 
-## v0.4.0 (unreleased)
+## v0.4.0 / 7 Aug 2014
 
 ### Gherkin framework and reporter
 
@@ -11,6 +11,10 @@
   Moreover the Markdown Gherkin reporter merges all scenarios whose feature share the same title.
 * Better support for features and steps without implementation (that is, without a callback function),
   including a better integration with [selenium-webdriver](https://www.npmjs.org/package/selenium-webdriver).
+
+### HTTP helpers and chai plugins
+* Fixed a bug that prevented collections module from preserving the HTTP headers name casing.
+* Fixed a bug that made `httpAllowHeader` assertion to fail in some corner cases.
 
 
 ## v0.3.1 / 23 Jul 2014
