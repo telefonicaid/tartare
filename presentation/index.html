@@ -111,12 +111,12 @@
 						<p>
 							Real stats and metrics counting<br/>features, scenarios, variants and steps
 						</p>
-						<img width="502" height="248" src="img/report_gherkin_metrics.png">
+						<img width="480" height="242" src="img/report_gherkin_metrics.png">
 					</section>
 					<section>
 						<h2>New reporters</h2>
 						<h4>Markdown Gherkin reporter</h4>
-						<img width="500" src="img/report_gherkin_markdown.png">
+						<img width="490" src="img/report_gherkin_markdown.png">
 					</section>
 				</section>
 
@@ -128,10 +128,10 @@ var tartare = require('tartare');
 					</code></pre>
 					<h4><br/>Running tests</h4>
 					<pre><code class="bash">
-$ mocha --reporter tartare/gherkin --ui bdd ./acceptance
+$ tartare --reporter gherkin --recursive ./acceptance
 					</code></pre>
 					<pre><code class="bash">
-$ mocha --reporter tartare/gherkin-md --ui bdd ./acceptance
+$ tartare --reporter gherkin-md --recursive ./acceptance
 					</code></pre>
 				</section>
 
@@ -188,13 +188,30 @@ feature('Addition', function() {
 					</section>
 
 					<section>
-						<h2>Pending Scenarios</h2><br/>
+						<h2>Manual</h2>
+						<h3>Features/Scenarios/Steps</h3><br/>
 						<pre><code class="javascript">
 feature('Multiplication', function() {
-  scenario('Multiply two numbers');
+  scenario('Multiply two numbers');  // This is a manual scenario
+});
+feature.manual('Addition', function() {  // This is a manual feature
+  scenario('Add two numbers', function () { [...] });
 });
 						</code></pre>
-						<img width="375" height="130" src="img/report_gherkin_pending_scenario.png">
+						<img width="641" height="272" src="img/report_gherkin_manual.png">
+					</section>
+
+					<section>
+						<h2>Skipped</h2>
+						<h3>Features/Scenarios/Steps</h3><br/>
+						<pre><code class="javascript">
+// This feature is completely ignored
+feature.skip('Multiplication', function() {
+  scenario('Multiply two numbers', function() {
+    [...]
+  });
+});
+						</code></pre>
 					</section>
 
 				</section>
@@ -205,7 +222,7 @@ feature('Multiplication', function() {
 						<pre><code class="javascript">
 var dataset = [
   { desc: '50 + 70 = 120', num1: 50, num2: 70, result: 120 },
-  { desc: '100 + 90 = 190', num1: 100, num2: 90, result: 190 },
+  { desc: '100 + 90 = 190', num1: 100, num2: 90, result: 190 }
 ];
 
 feature('Addition', function() {
@@ -226,13 +243,111 @@ feature('Addition', function() {
 
 					<section>
 						<h2>Variants</h2><br/>
-						<h4 style="text-transform: none">SPECIAL FIELDS: tag, bugId, desc</h4><br/>
+						<h3>Manual & Skipped</h3>
 						<pre><code class="javascript">
 var dataset = [
-  { tag: 'reviewed', bugId: 'JIRAID-264', desc: '50 + 70 = 120', num1: 50, num2: 70, result: 120 },
+  { manual: true, desc: '50 + 70 = 120', num1: 50, num2: 70, result: 120 },
+  { skip: true, desc: '100 + 90 = 190', num1: 100, num2: 90, result: 190 }
 ];
 						</code></pre>
-						<img width="617" height="162" src="img/report_gherkin_variants_special.png">
+						<img width="659" height="211" src="img/report_gherkin_variants_manual_skipped.png">
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Bug monitoring</h2>
+						<h3>Minor bugs</h3><br/>
+						<h4>They are not executed and count as passed</h4>
+						<pre><code class="javascript">
+feature('Addition', function() {
+  scenario('Add two numbers', function() {
+    given('I have entered 50 into the calculator', function() { });
+    and('I have entered 70 into the calculator', function() { });
+    when('I press add', function() { });
+    then('the result should be 120 on the screen', function() { });
+  }).minorBug('bug12345');
+});
+						</code></pre>
+						<img width="547" height="184" src="img/report_gherkin_minorbug.png">
+					</section>
+
+					<section>
+						<h2>Bug monitoring</h2>
+						<h3>Major bugs</h3><br/>
+						<h4>They are executed and count as failed</h4>
+						<pre><code class="javascript">
+feature('Addition', function() {
+  scenario('Add two numbers', function() {
+    given('I have entered 50 into the calculator', function() { });
+    and('I have entered 70 into the calculator', function() { });
+    when('I press add', function() { });
+    then('the result should be 120 on the screen', function() { });
+  }).majorBug('bug12345');
+});
+						</code></pre>
+						<img width="617" height="187" src="img/report_gherkin_majorbug.png">
+					</section>
+
+					<section>
+						<h2>Bug monitoring</h2>
+						<h3>Variants</h3><br/>
+						<pre><code class="javascript">
+var dataset = [
+  { minorBug: 'bug12345', desc: '50 + 70 = 120', num1: 50, num2: 70, result: 120 },
+  { majorBug: 'bug54321', desc: '100 + 90 = 190', num1: 100, num2: 90, result: 190 }
+];
+						</code></pre>
+						<img width="622" height="305" src="img/report_gherkin_bugs_variants.png">
+					</section>
+
+					<section>
+						<h2>Bug monitoring</h2>
+						<h3>Links</h3><br/>
+						<p>
+							On markdown reports, bug ids will be links<br/>if the <code>--bugid-link</code> parameter is provided.
+						</p>
+						<pre><code class="bash">
+$ tartare --reporter gherkin-md --bugid-link "http://bugtrackingsystem/%s" --recursive ./acceptance
+						</code></pre>
+						<img width="396" height="208" src="img/report_gherkin_bugs_link.png">
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Tags</h2>
+						<h4>Tagging features/scenarios/variants</h4><br/>
+						<pre><code class="javascript">
+feature('Addition', function() {
+  var dataset = [
+    { tag: 'tag4', desc: '50 + 70 = 120', num1: 50, num2: 70, result: 120 },
+    { tag: 'tag5', desc: '100 + 90 = 190', num1: 100, num2: 90, result: 190 }
+  ];
+  scenario('Add two numbers', dataset, function(variant) { }).tag('tag2');
+  scenario('Add two negative numbers', function() { }).tag('tag3', 'tagA');
+}).tag('tag1');
+						</code></pre>
+					</section>
+
+					<section>
+						<h2>Tags</h2>
+						<h4>Filtering test execution</h4><br/>
+						<pre><code class="bash">
+# Run tests having tag4 and tag3
+$ tartare --reporter gherkin --filter "+tag4,+tag3" --recursive ./acceptance
+# Run tests having tag2 and not having tag5
+$ tartare --reporter gherkin --filter "+tag2,-tag5" --recursive ./acceptance
+# Run tests having tag2 or tagA
+$ tartare --reporter gherkin --filter "+tag2|-tagA" --recursive ./acceptance
+# Run tests having tag4 or having tag3 and tagA
+$ tartare --reporter gherkin --filter "+tag4|(+tag3&+tagA)" --recursive ./acceptance
+						</code></pre>
+						<br/>
+						<p>
+							'manual' and 'bug' are reserved tags that are set by Tartare when using the
+							<code>.manual</code> modifier or <code>minorBug/majorBug</code> methods.
+						</p>
 					</section>
 				</section>
 
@@ -397,20 +512,20 @@ feature('Configuration', function() {
 				</section>
 
 				<section>
-					<h2>Skip and Only</h2><br/>
-					<p>You can use the .skip and .only version<br/>of <b>feature</b> and <b>scenario</b> keywords</p>
+					<h2>Only</h2><br/>
+					<p>You can use the .only version<br/>of <b>feature</b> and <b>scenario</b> keywords</p>
 					<pre><code class="javascript">
 feature.only('Addition', function() {
-  scenario.skip('Add two numbers', function() {
+  scenario.only('Add two numbers', function() {
     [...]
   });
 });
 					</code></pre>
-					<p>It also works with <b>variants</b> including<br/>the fields <b>skip</b> or <b>only</b> set to a truthy value</p>
+					<p>It also works with <b>variants</b> including<br/>the field <b>only</b> set to a truthy value</p>
 					<pre><code class="javascript">
 var dataset = [
-  { skip: true, desc: '50 + 70 = 120', num1: 50, num2: 70, result: 120 },
-  { only: true, desc: '100 + 90 = 190', num1: 100, num2: 90, result: 190 },
+  { only: true, desc: '50 + 70 = 120', num1: 50, num2: 70, result: 120 },
+  { desc: '100 + 90 = 190', num1: 100, num2: 90, result: 190 },
 ];
 					</code></pre>
 				</section>
