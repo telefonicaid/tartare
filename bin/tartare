@@ -1,0 +1,168 @@
+#!/usr/bin/env node
+
+/*
+
+ Copyright 2014 Telefonica Investigación y Desarrollo, S.A.U
+
+ This file is part of Tartare.
+
+ Tartare is free software: you can redistribute it and/or modify it under the
+ terms of the Apache License as published by the Apache Software Foundation,
+ either version 2.0 of the License, or (at your option) any later version.
+ Tartare is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ See the Apache License for more details.
+
+ You should have received a copy of the Apache License along with Tartare.
+ If not, see http://www.apache.org/licenses/LICENSE-2.0
+
+ For those usages not covered by the Apache License please contact with:
+ joseantonio.rodriguezfernandez@telefonica.com
+
+ */
+
+'use strict';
+
+require('../lib/utils');
+var fs = require('fs')
+  , spawn = require('child_process').spawn
+  ;
+
+
+var supportedReporters = {
+  'gherkin': 'outputs coloured Gherkin syntax',
+  'gherkin-md': 'outputs Gherkin syntax in Markdown format'
+};
+
+function _printHelp() {
+  console.log('\n  Usage: tartere [options] [files]');
+  console.log('\n  Options:\n');
+  console.log('    -h, --help                 output usage information');
+  console.log('    -V, --version              output the version number');
+  console.log('    -R, --reporter <name>      specify the reporter to use [gherkin]');
+  console.log('    -t, --timeout <ms>         set test timeout in milliseconds [10000]');
+  console.log('    -f, --filter <filter_str>  run only tests matching <filter_str>');
+  console.log('    --reporters                display available reporters');
+  console.log();
+  console.log('  Filter syntax:');
+  console.log('  - Tags can only contain uppercase/lowercase letters, numbers, and underscore.');
+  console.log('  - These tags are reserved: only, skip, manual, bug.');
+  console.log('  - Tags can be combined with the following operators:');
+  console.log('      +: before a tag indicates that the tag must exist (it is equivalent to putting the tag alone)');
+  console.log('      -: before a tag indicates that the tag must NOT exist');
+  console.log('      & or ,: between two tags (or expressions) means a logic AND');
+  console.log('      |: between two tags (or expressions) means a logic OR');
+  console.log('      (): parenthesis can be used to indicate precedence');
+  console.log();
+  process.exit(0);
+}
+
+function _printVersion() {
+  console.log(JSON.parse(fs.readFileSync(__dirname + '/../package.json', 'utf8')).version);
+  process.exit(0);
+}
+
+function _printReporters() {
+  console.log('\n  Tartare reporters:\n');
+  for (var reporter in supportedReporters) {
+    console.log('    ' + reporter + ' - ' + supportedReporters[reporter]);
+  }
+  console.log();
+  process.exit(0);
+}
+
+var opts = {};
+var unrecognizedArgs = [];
+
+for (var i = 2; i < process.argv.length; i++) {
+  switch (process.argv[i]) {
+    case '-h':
+    case '--help':
+      _printHelp();
+      break;
+    case '-V':
+    case '--version':
+      _printVersion();
+      break;
+    case '--reporters':
+      _printReporters();
+      break;
+    case '-R':
+    case '--reporter':
+      opts.reporter = process.argv[++i];
+      if (!supportedReporters[opts.reporter]) {
+        console.log('\nUnsupported reporter "' + opts.reporter + '". Valid reporters are: ' +
+          Object.keys(supportedReporters).join(', ') + '\n');
+        process.exit(-1);
+      }
+      break;
+    case '-t':
+    case '--timeout':
+      opts.timeout = process.argv[++i];
+      break;
+    case '-f':
+    case '--filter':
+      opts.filter = process.argv[++i];
+      if (!/^[A-Za-z0-9_ ,\-\+&\|\(\)]+$/.test(opts.filter)) {
+        console.log('\nInvalid filter parameter "' + opts.filter + '". See tartare -h for more info.\n' );
+        process.exit(-1);
+      }
+      break;
+    case '-g':
+    case '--grep':
+      opts.grep = process.argv[++i];
+      break;
+    case '-i':
+    case '--invert':
+      opts.invert = true;
+      break;
+    case '--interfaces':
+      // Discard this argument to avoid being passed in to Mocha
+      break;
+    case '-u':
+    case '--ui':
+      // Discard this argument to avoid being passed in to Mocha
+      // If the argument has a value, discard it too
+      if (!process.argv[i + 1].startsWith('-')) {
+        i++;
+      }
+      break;
+    default:
+      unrecognizedArgs.push(process.argv[i]);
+  }
+}
+
+opts.reporter = opts.reporter || 'gherkin';
+opts.timeout = opts.timeout || '10000';
+
+
+/*
+ Call Mocha passing needed arguments
+ */
+
+var args = [ __dirname + '/../node_modules/mocha/bin/mocha' ];
+args = args.concat('--require', __dirname + '/../lib/mocha-gherkin/mocha-gherkin.js');
+args = args.concat('--reporter', __dirname + '/../lib/mocha-gherkin/reporters/' + opts.reporter);
+args = args.concat('--ui', 'bdd');
+args = args.concat('--timeout', opts.timeout);
+if (opts.filter) {
+  // The filter string is convoyed into a RegExp object, due to how Mocha works
+  args = args.concat('--grep', 'tartare: ' + RegExp.escape(opts.filter));
+} else if (opts.grep) {
+  args = args.concat('--grep', opts.grep);
+  if (opts.invert) {
+    args = args.concat('--invert');
+  }
+}
+args = args.concat(unrecognizedArgs);
+
+var child = spawn(process.argv[0], args, { stdio: 'inherit' });
+child.on('exit', function (code, signal) {
+  process.on('exit', function() {
+    if (signal) {
+      process.kill(process.pid, signal);
+    } else {
+      process.exit(code);
+    }
+  });
+});
