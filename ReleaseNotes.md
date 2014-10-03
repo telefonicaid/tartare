@@ -1,6 +1,6 @@
 # RELEASE NOTES
 
-## v0.5.0 / XXX
+## v0.5.0 / 3 Oct 2014
 
 ### Gherkin framework and reporter
 
