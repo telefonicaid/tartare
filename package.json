@@ -1,17 +1,15 @@
 {
   "name": "tartare",
   "version": "0.5.0",
-  "description": "Gherkin-like Mocha extension and reporter, and testing tools library for Node.js",
+  "description": "Gherkin-like Mocha extension and reporter, and testing tools library for Javascript",
+  "main": "./index",
   "bin": {
     "tartare": "./bin/tartare",
     "apimockserver": "./bin/apimockserver"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:telefonicaid/tartare.git"
-  },
-  "engines": {
-    "node": "0.10.31"
+    "url": "https://github.com/telefonicaid/tartare.git"
   },
   "license": "Apache-2.0",
   "author": {
@@ -38,6 +36,7 @@
     "testing",
     "QA"
   ],
+  "bugs": "https://github.com/telefonicaid/tartare/issues",
   "dependencies": {
     "buffertools": "2.1.2",
     "chai": "1.9.1",
