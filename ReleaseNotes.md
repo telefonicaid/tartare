@@ -1,5 +1,14 @@
 # RELEASE NOTES
 
+## v0.6.0 / XXX
+
+### API Mock
+
+* API Mock now supports 2waySSL. Write `apimockserver` without parameters to see how to use it. Last requests objects will
+  include a new property named `certificate` that will convey the details of the certificate used by the client to establish
+  the connection.
+
+
 ## v0.5.0 / 3 Oct 2014
 
 ### Gherkin framework and reporter
@@ -67,7 +76,8 @@
       { minorBug: 'my-bug-id', desc: 'This is a variant with a minor bug' } 
     ];
 ```
-      
+
+
 ## v0.4.0 / 7 Aug 2014
 
 ### Gherkin framework and reporter
