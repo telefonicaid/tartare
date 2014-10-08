@@ -1,6 +1,6 @@
 {
   "name": "tartare",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Gherkin-like Mocha extension and reporter, and testing tools library for Javascript",
   "main": "./index",
   "bin": {
@@ -54,6 +54,7 @@
     "optimist": "0.6.1",
     "request": "2.40.0",
     "synchronize": "0.9.8",
-    "underscore": "1.7.0"
+    "underscore": "1.7.0",
+    "xml2json": "0.5.1"
   }
 }
