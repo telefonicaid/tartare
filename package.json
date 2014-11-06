@@ -1,6 +1,6 @@
 {
   "name": "tartare",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "Gherkin-like Mocha extension and reporter, and testing tools library for Javascript",
   "main": "./index",
   "bin": {
