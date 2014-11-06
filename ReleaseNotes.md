@@ -1,6 +1,6 @@
 # RELEASE NOTES
 
-## v0.6.0 / XXX
+## v0.6.0 / 6 Nov 2014
 
 ### API Mock
 
