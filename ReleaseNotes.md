@@ -1,5 +1,13 @@
 # RELEASE NOTES
 
+## v0.7.0 / XXX
+
+### API Mock
+
+* `lastrequests` resource now include a timestamp for each received request and the list of last request is ordered
+  by timestamp.
+
+
 ## v0.6.0 / 6 Nov 2014
 
 ### API Mock
