@@ -171,6 +171,13 @@ for (var i = 2; i < process.argv.length; i++) {
           console.error('Argument "' + optName + '" must have a value');
           process.exit(-1);
         }
+        // Convert optName to its lowerCamelCase form
+        optName = optName.split('-').map(function(token, index) {
+          if (index > 0) {
+            return token.slice(0, 1).toUpperCase() + token.slice(1).toLowerCase();
+          }
+          return token.toLowerCase();
+        }).join('');
         opts[optName] = optValue;
       } else {
         // The argument is a test file
@@ -211,4 +218,3 @@ function exitLater(code) {
 process.on('SIGINT', function() {
   runner.abort();
 });
-
