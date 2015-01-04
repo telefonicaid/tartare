@@ -2,6 +2,45 @@
 
 ## v0.7.0 / XXX
 
+### Gherkin framework and reporter
+* From now on, Tartare can be used programmatically, instantiating a Tartare object, and gaining control over the
+  tests execution.
+  You can pass an object to the Tartare constructor with the following options:
+  - `reporter`: Choose between the console reporter (`gherkin`) or the markdown reporter (`gherkin-md`). Default: `gherkin`.
+  - `timeout`: Set test timeout in milliseconds. Default: `10000`.
+  - `filter`: Run only tests matching the filter.
+  - `bail`: Stop executing tests on the first failure: Default: `true`.
+  - `useColors`: Set whether colors can be used on console reporters. Default: `true`.
+  - `enableTimeouts`: Enable timeouts. Default: `true`.
+  - Any other options will be available through the `getTartareOptions` function.
+  
+  You can access to the underlying Mocha object through `tartare.mocha`.
+  
+  
+```javascript
+var Tartare = require('tartare');
+
+// First, instantiate a Tartare instance.
+var tartare = new Tartare({
+  timeout: 5000,
+  filter: 'some_tag'
+});
+
+// Then, add the test files using the "addFiles" method.
+tartare.addFiles([file1, file2, ...]);
+
+// Finally, run the tests!
+tartare.run(function(failures) {
+  process.exit(failures);
+});
+```
+
+* The CLI program now supports new arguments. See `tartare -h` for more info.
+* A new `but` step has been added.
+* Test execution stops after the first failure as a default behaviour that can be changed passing `bail: false` to the
+  Tartare constructor, or `--no-bail` to the CLI program.
+* `getTartareOptions` and `synchronize` are now global functions, so you can call them without the `tartare.` prefix.
+
 ### API Mock
 
 * `lastrequests` resource now include a timestamp for each received request and the list of last request is ordered

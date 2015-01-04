@@ -23,9 +23,9 @@
 
 'use strict';
 
-require('../lib/utils');
-var fs = require('fs')
-  , spawn = require('child_process').spawn
+var Tartare = require('..')
+  , fs = require('fs')
+  , path = require('path')
   ;
 
 
@@ -35,13 +35,20 @@ var supportedReporters = {
 };
 
 function _printHelp() {
-  console.log('\n  Usage: tartere [options] [files]');
+  console.log('\n  Usage: tartare [options] [files]');
   console.log('\n  Options:\n');
   console.log('    -h, --help                 output usage information');
   console.log('    -V, --version              output the version number');
+  console.log('    -r, --require              require the given module');
   console.log('    -R, --reporter <name>      specify the reporter to use [gherkin]');
   console.log('    -t, --timeout <ms>         set test timeout in milliseconds [10000]');
   console.log('    -f, --filter <filter_str>  run only tests matching <filter_str>');
+  console.log('    -c, --colors               force enabling of colors');
+  console.log('    -C, --no-colors            force disabling of colors');
+  console.log('    -B, --no-bail              prevent from bailing after first step failure');
+  console.log('    --no-exit                  require a clean shutdown of the event loop: Tartare will not call process.exit');
+  console.log('    --no-timeouts              disables timeouts');
+  console.log('    --recursive                include sub directories');
   console.log('    --reporters                display available reporters');
   console.log();
   console.log('  Filter syntax:');
@@ -72,7 +79,10 @@ function _printReporters() {
 }
 
 var opts = {};
-var unrecognizedArgs = [];
+var requires = [];
+var files = [];
+var recursive = false;
+var noExit = false;
 
 for (var i = 2; i < process.argv.length; i++) {
   switch (process.argv[i]) {
@@ -87,11 +97,15 @@ for (var i = 2; i < process.argv.length; i++) {
     case '--reporters':
       _printReporters();
       break;
+    case '-r':
+    case '--require':
+      requires.push(process.argv[++i]);
+      break;
     case '-R':
     case '--reporter':
       opts.reporter = process.argv[++i];
       if (!supportedReporters[opts.reporter]) {
-        console.log('\nUnsupported reporter "' + opts.reporter + '". Valid reporters are: ' +
+        console.error('\nUnsupported reporter "' + opts.reporter + '". Valid reporters are: ' +
           Object.keys(supportedReporters).join(', ') + '\n');
         process.exit(-1);
       }
@@ -103,66 +117,104 @@ for (var i = 2; i < process.argv.length; i++) {
     case '-f':
     case '--filter':
       opts.filter = process.argv[++i];
-      if (!/^[A-Za-z0-9_ ,\-\+&\|\(\)]+$/.test(opts.filter)) {
-        console.log('\nInvalid filter parameter "' + opts.filter + '". See tartare -h for more info.\n' );
+      if (!/^[A-Za-z0-9_ ,+&|()-]+$/.test(opts.filter)) {
+        console.error('\nInvalid filter parameter "' + opts.filter + '". See tartare -h for more info.\n' );
         process.exit(-1);
       }
       break;
-    case '-g':
-    case '--grep':
-      opts.grep = process.argv[++i];
+    case '-c':
+    case '--colors':
+      opts.useColors = true;
       break;
+    case '-C':
+    case '--no-colors':
+      opts.useColors = false;
+      break;
+    case '-B':
+    case '--no-bail':
+      opts.bail = false;
+      break;
+    case '--no-exit':
+      noExit = true;
+      break;
+    case '--no-timeouts':
+      opts.enableTimeouts = false;
+      break;
+    case '--recursive':
+      recursive = true;
+      break;
+
     case '-i':
     case '--invert':
-      opts.invert = true;
-      break;
     case '--interfaces':
-      // Discard this argument to avoid being passed in to Mocha
+      // Discard these arguments to avoid being passed in to Mocha
       break;
     case '-u':
     case '--ui':
-      // Discard this argument to avoid being passed in to Mocha
-      // If the argument has a value, discard it too
+    case '-g':
+    case '--grep':
+      // Discard these arguments to avoid being passed in to Mocha
+      // If the arguments have a value, discard it too
       if (!process.argv[i + 1].startsWith('-')) {
         i++;
       }
       break;
+
     default:
-      unrecognizedArgs.push(process.argv[i]);
+      if (process.argv[i].startsWith('-')) {
+        // Other arguments that look like options are added to Tartare options
+        // to make them available through the function `getTartareOptions`.
+        // This kind of arguments must always have a value.
+        var optName = process.argv[i].replace(/^--?/, ''); // Remove leading hyphens
+        var optValue = process.argv[++i];
+        if (optValue === undefined) {
+          console.error('Argument "' + optName + '" must have a value');
+          process.exit(-1);
+        }
+        // Convert optName to its lowerCamelCase form
+        optName = optName.split('-').map(function(token, index) {
+          if (index > 0) {
+            return token.slice(0, 1).toUpperCase() + token.slice(1).toLowerCase();
+          }
+          return token.toLowerCase();
+        }).join('');
+        opts[optName] = optValue;
+      } else {
+        // The argument is a test file
+        files.push(process.argv[i]);
+      }
   }
 }
 
-opts.reporter = opts.reporter || 'gherkin';
-opts.timeout = opts.timeout || '10000';
 
+// Require modules passed in through the -r, --require option
+module.paths.push(process.cwd(), path.join(process.cwd(), 'node_modules'));
+requires.forEach(function(mod) {
+  require(mod);
+});
 
-/*
- Call Mocha passing needed arguments
- */
+// Expand and resolve the list of test files
+var files_ = [];
+var lookupFiles = require('mocha/lib/utils').lookupFiles;
+files.forEach(function(file){
+  files_ = files_.concat(lookupFiles(file, ['js'], recursive));
+});
+files_ = files_.map(function(path_){
+  return path.resolve(path_);
+});
 
-var args = [ __dirname + '/../node_modules/mocha/bin/mocha' ];
-args = args.concat('--require', __dirname + '/../lib/mocha-gherkin/mocha-gherkin.js');
-args = args.concat('--reporter', __dirname + '/../lib/mocha-gherkin/reporters/' + opts.reporter);
-args = args.concat('--ui', 'bdd');
-args = args.concat('--timeout', opts.timeout);
-if (opts.filter) {
-  // The filter string is convoyed into a RegExp object, due to how Mocha works
-  args = args.concat('--grep', 'tartare: ' + RegExp.escape(opts.filter));
-} else if (opts.grep) {
-  args = args.concat('--grep', opts.grep);
-  if (opts.invert) {
-    args = args.concat('--invert');
-  }
-}
-args = args.concat(unrecognizedArgs);
+// Load Tartare
+var tartare = new Tartare(opts);
+tartare.addFiles(files_);
 
-var child = spawn(process.argv[0], args, { stdio: 'inherit' });
-child.on('exit', function (code, signal) {
+// Run Tartare
+var runner = tartare.run(noExit ? exitLater : process.exit);
+function exitLater(code) {
   process.on('exit', function() {
-    if (signal) {
-      process.kill(process.pid, signal);
-    } else {
-      process.exit(code);
-    }
+    process.exit(code)
   });
+}
+
+process.on('SIGINT', function() {
+  runner.abort();
 });
