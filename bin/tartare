@@ -23,10 +23,11 @@
 
 'use strict';
 
+/* eslint-disable no-process-exit */
+
 var Tartare = require('..'),
     fs = require('fs'),
     path = require('path');
-
 
 var supportedReporters = {
   'gherkin': 'outputs coloured Gherkin syntax',
@@ -45,7 +46,8 @@ function _printHelp() {
   console.log('    -c, --colors               force enabling of colors');
   console.log('    -C, --no-colors            force disabling of colors');
   console.log('    -B, --no-bail              prevent from bailing after first step failure');
-  console.log('    --no-exit                  require a clean shutdown of the event loop: Tartare will not call process.exit');
+  console.log('    --no-exit                  require a clean shutdown of the event loop: ' +
+      'Tartare will not call process.exit');
   console.log('    --no-timeouts              disables timeouts');
   console.log('    --recursive                include sub directories');
   console.log('    --reporters                display available reporters');
@@ -75,6 +77,13 @@ function _printReporters() {
   }
   console.log();
   process.exit(0);
+}
+
+function _convertToLowerCamelCase(token, index) {
+  if (index > 0) {
+    return token.slice(0, 1).toUpperCase() + token.slice(1).toLowerCase();
+  }
+  return token.toLowerCase();
 }
 
 var opts = {};
@@ -117,7 +126,7 @@ for (var i = 2; i < process.argv.length; i++) {
     case '--filter':
       opts.filter = process.argv[++i];
       if (!/^[A-Za-z0-9_ ,+&|()-]+$/.test(opts.filter)) {
-        console.error('\nInvalid filter parameter "' + opts.filter + '". See tartare -h for more info.\n' );
+        console.error('\nInvalid filter parameter "' + opts.filter + '". See tartare -h for more info.\n');
         process.exit(-1);
       }
       break;
@@ -171,12 +180,7 @@ for (var i = 2; i < process.argv.length; i++) {
           process.exit(-1);
         }
         // Convert optName to its lowerCamelCase form
-        optName = optName.split('-').map(function(token, index) {
-          if (index > 0) {
-            return token.slice(0, 1).toUpperCase() + token.slice(1).toLowerCase();
-          }
-          return token.toLowerCase();
-        }).join('');
+        optName = optName.split('-').map(_convertToLowerCamelCase).join('');
         opts[optName] = optValue;
       } else {
         // The argument is a test file
@@ -184,7 +188,6 @@ for (var i = 2; i < process.argv.length; i++) {
       }
   }
 }
-
 
 // Require modules passed in through the -r, --require option
 module.paths.push(process.cwd(), path.join(process.cwd(), 'node_modules'));
@@ -195,10 +198,10 @@ requires.forEach(function(mod) {
 // Expand and resolve the list of test files
 var files_ = [];
 var lookupFiles = require('mocha/lib/utils').lookupFiles;
-files.forEach(function(file){
+files.forEach(function(file) {
   files_ = files_.concat(lookupFiles(file, ['js'], recursive));
 });
-files_ = files_.map(function(path_){
+files_ = files_.map(function(path_) {
   return path.resolve(path_);
 });
 
@@ -210,7 +213,7 @@ tartare.addFiles(files_);
 var runner = tartare.run(noExit ? exitLater : process.exit);
 function exitLater(code) {
   process.on('exit', function() {
-    process.exit(code)
+    process.exit(code);
   });
 }
 

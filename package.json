@@ -9,7 +9,7 @@
     "tartare": "./bin/tartare"
   },
   "scripts": {
-    "lint": "./node_modules/.bin/jscs index.js bin lib && ./node_modules/.bin/eslint index.js bin lib",
+    "lint": "jscs index.js bin lib && eslint index.js bin lib",
     "prepublish": "npm run lint"
   },
   "repository": {
@@ -36,5 +36,9 @@
     "mocha": "2.1.0",
     "synchronize": "0.9.9",
     "underscore": "1.7.0"
+  },
+  "devDependencies": {
+    "eslint": "^0.11.0",
+    "jscs": "^1.9.0"
   }
 }
