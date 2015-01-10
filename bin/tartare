@@ -2,7 +2,7 @@
 
 /*
 
- Copyright 2014 Telefonica Investigación y Desarrollo, S.A.U
+ Copyright 2015 Telefonica Investigación y Desarrollo, S.A.U
 
  This file is part of Tartare.
 
@@ -23,10 +23,9 @@
 
 'use strict';
 
-var Tartare = require('..')
-  , fs = require('fs')
-  , path = require('path')
-  ;
+var Tartare = require('..'),
+    fs = require('fs'),
+    path = require('path');
 
 
 var supportedReporters = {
@@ -65,7 +64,7 @@ function _printHelp() {
 }
 
 function _printVersion() {
-  console.log(JSON.parse(fs.readFileSync(__dirname + '/../package.json', 'utf8')).version);
+  console.log(JSON.parse(fs.readFileSync(path.resolve(__dirname, '../package.json'), 'utf8')).version);
   process.exit(0);
 }
 

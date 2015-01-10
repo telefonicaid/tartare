@@ -6,6 +6,9 @@
 * Tartare is now fully compatible with [Protractor](http://angular.github.io/protractor). Until the `tartare` branch 
   in the `telefonicaid` fork is merged into Protractor upstream, get Protractor from 
   [here](https://github.com/telefonicaid/protractor/tree/tartare).
+  - There is a new global function called `promisize` that wraps all functions exported by a module to convert them
+    into WebDriver promises, and enqueue them in the WebDriver Control Flow, so they can be used in the same way
+    that Protractor's functions (`browser`, `element`, etc.) are used.
 * From now on, Tartare can be used programmatically, instantiating a Tartare object, and gaining control over the
   tests execution.
   You can pass an object to the Tartare constructor with the following options:
