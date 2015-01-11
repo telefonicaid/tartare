@@ -1,5 +1,8 @@
 # RELEASE NOTES
 
+## v0.8.0 / XXX
+
+
 ## v0.7.0 / 11 Jan 2015
 * From now on, `tartare` package contains only the framework functionality, while the rest of goodies are spread among 
   the new packages `tartare-util`, `tartare-collections`, `tartare-mock`, `tartare-chai` and `tartare-logs`.
