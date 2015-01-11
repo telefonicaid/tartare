@@ -1,13 +1,10 @@
 # TARTARE
 
-Gherkin-like Mocha extension and reporter, and testing tools library for Node.js
+Gherkin-like BDD testing framework for JavaScript based on Mocha
 
-* Mocha extension for using Gherkin syntax
-* Mocha reporter for showing pretty Gherkin syntax and metrics
-* Chai plugins for common API assertions
-* Collections: making easier the usage of REST collections
-* A generic API mock server
-* Utils for common tasks (helpers, constants, etc.)
+* Mocha UI for using Gherkin syntax
+* Mocha reporters for showing pretty Gherkin syntax and metrics
+
 
 See a Tartare presentation [here](http://telefonicaid.github.io/tartare/presentation/).
 
