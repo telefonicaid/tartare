@@ -1,7 +1,9 @@
 # RELEASE NOTES
 
 ## v0.8.0 / XXX
-* Fix gherkin-md reporter to finish without calling `process.exit`.
+* Fixed gherkin-md reporter to finish without calling `process.exit`.
+* Added execution time for variants, scenarios, features and for the whole suite in the `gherkin` reporter.
+
 
 ## v0.7.0 / 11 Jan 2015
 * From now on, `tartare` package contains only the framework functionality, while the rest of goodies are spread among 
