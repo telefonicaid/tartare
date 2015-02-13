@@ -1,11 +1,10 @@
 # RELEASE NOTES
 
-## v0.8.0 / XXX
+## v0.8.0 / 13 Feb 2015
 * Fixed gherkin-md reporter to finish without calling `process.exit`.
 * Added execution time for variants, scenarios, features and for the whole suite in the `gherkin` reporter.
 * Added a new `sleep` function that works like `setTimeout` but expect the `cb` in the last argument and
   it is ready to be used as a synchronous function.
-
 
 ## v0.7.0 / 11 Jan 2015
 * From now on, `tartare` package contains only the framework functionality, while the rest of goodies are spread among 
