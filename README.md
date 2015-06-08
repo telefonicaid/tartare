@@ -1,13 +1,14 @@
 # TARTARE - Code Driven Testing
 
 
-The Tartare family:
+**The Tartare family:**
 [tartare-chai](https://github.com/telefonicaid/tartare-chai/) |
 [tartare-mock](https://github.com/telefonicaid/tartare-mock/) |
 [tartare-util](https://github.com/telefonicaid/tartare-util/) |
 [tartare-collections](https://github.com/telefonicaid/tartare-collections/) |
 [tartare-logs](https://github.com/telefonicaid/tartare-logs/)
 
+---
 
 Tartare is a JavaScript testing framework which uses 
 [BDD/Gherkin](http://en.wikipedia.org/wiki/Behavior-driven_development#Behavioural_specifications) 
@@ -17,7 +18,6 @@ It is fully **code driven** since all your testing stuff is in your code.
 Tartare is based on the popular [Mocha](http://mochajs.org/) framework providing you with a new Gherkin *ui* and 
 a couple of Gherkin *reporters*, among other goodies.
 
----
 
 ## TOC
 - [Install](#install)
@@ -51,8 +51,8 @@ $ npm install -g tartare
 
 
 ## Describe your tests
-When using Gherkin to describe tests, each test is called a **scenario**, and several related scenarios are grouped 
-inside a **feature**. Then those scenarios are described in term of its pre-conditions, the event that triggers 
+When using Gherkin to describe tests, each test is called a **scenario**, and several related *scenarios* are grouped 
+inside a **feature**. Then those *scenarios* are described in term of its pre-conditions, the event that triggers 
 the test, and the expected outcomes or post-conditions. Pre-conditions are described with the **given** keyword,
 while events and post-conditions are described with the keywords **when** and **then**, respectively. You can also
 use the keywords **and** and **but** if your test needs more than one pre-condition, event, or post-condition.
@@ -79,9 +79,9 @@ feature('Addition', function() {
 });
 ```
 
-The `feature` function accepts a variable number of string arguments between the feature description an the callback
-function. Those all arguments may be used to give more information about the feature, such as the User Story related
-to the feature, o some kind of additional information.
+The `feature` function accepts a variable number of string arguments between the *feature* description an the
+function. Those all arguments may be used to give more information about the *feature*, such as the User Story related
+to the *feature*, o some kind of additional information.
 
 ```javascript
 feature('Addition', 
@@ -98,9 +98,9 @@ feature('Addition',
 ```
 
 ### Filling in the steps
-It's time to tell your steps what to do. Simply write your code inside the callback function for each step.
+It's time to tell your *steps* what to do. Simply write your code inside each *step* function.
 
-It is not a good idea to put a lot of code inside each step. For the sake of clarity it is always better 
+It is not a good idea to put a lot of code inside each *step*. For the sake of clarity it is always better 
 to put your complex code in a separated module, exporting the needed functions, and using them from the
 main test file. Let's call this module your **step library**.
 
@@ -121,8 +121,8 @@ feature('Addition', function() {
 });
 ```
 
-If you code is asynchronous, add a callback function (usually named `done`) to the step callback, and invoke
-that callback when the step is complete. This callback understand the common `(err, res)` pattern so it can
+If you code is asynchronous, add a callback function (usually named `done`) to the *step* function, and invoke
+that callback when the *step* is complete. This callback understand the common `(err, res)` pattern so it can
 be directly used as your function's callback.
 
 ```javascript
@@ -140,7 +140,7 @@ feature('Addition', function() {
 });
 ```
 
-And what if you need to call more than an asynchronous function in a single step? It would look like this:
+And what if you need to call more than an asynchronous function in a single *step*? It would look like this:
 
 ```javascript
 var steps = require('./steps-library');
@@ -184,7 +184,7 @@ feature('Addition', function() {
 
 Note that the wrapped functions can still be invoked asynchronously if called with a callback.
 
-If you include synchronous functions in your step library, prevent `synchronize` from being applied to them 
+If you include synchronous functions in your *step library*, prevent `synchronize` from being applied to them 
 by adding an attribute named `dontSync` with a truthy value.
 
 ```javascript
@@ -210,8 +210,8 @@ Or to run tests in a directory and its subdirectories:
 $ tartare --recursive tests
 ```
 
-Tartare will run your tests writing to the console a coloured output that shows the descriptions of the features,
-scenarios and steps, the execution duration at several levels, and a summary with some stats and metrics 
+Tartare will run your tests writing to the console a coloured output that shows the descriptions of the *features*,
+*scenarios* and *steps*, the execution duration at several levels, and a summary with some stats and metrics 
 about your test suite.
 
 ![Gherkin reporter output](http://telefonicaid.github.io/tartare/img/gherkin-reporter.png)
@@ -220,18 +220,18 @@ This output is generated by the so-called Gherkin reporter. See more about the a
 
 
 ## Data Driven Testing - Variants
-The concept of Data Driven Testing basically means that a single scenario is executed several times using
-different input data. In our calculator example, we could run the scenario to test the *Add* function with
+The concept of Data Driven Testing basically means that a single *scenario* is executed several times using
+different input data. In our calculator example, we could run the *scenario* to test the *Add* function with
 different numbers.
 
-Tartare's scenarios accept an extra argument with the set of data to be used in each scenario execution. 
-This argument must be an array of objects, each one containing the properties to be used in each scenario execution.
+Tartare *scenarios* accept an extra argument with the set of data to be used in each *scenario* execution. 
+This argument must be an array of objects, each one containing the properties to be used in each *scenario* execution.
 Each one of these objects is named a **Variant**. 
-Then the scenario function will be invoked as many times as there are variants in the array, passing the variant
-object to the scenario function as an argument.
+Then the *scenario* function will be invoked as many times as there are *variants* in the array, passing the *variant*
+object to the *scenario* function as an argument.
 
-If you include a string property named `desc` in each Variant, it will be used by the reporters to title
-the Variant.
+If you include a string property named `desc` in each *variant*, it will be used by the reporters to title
+the *variant*.
 
 ```javascript
 var steps = require('./steps-library');
@@ -254,27 +254,27 @@ feature('Addition', function() {
 });
 ```
 
-Such a scenario produces the following output when the test suite is run:
+Such a *scenario* produces the following output when the test suite is run:
 
-![Gherkin reporter output when using Variants](http://telefonicaid.github.io/tartare/img/gherkin-reporter-variants.png)
+![Gherkin reporter output when using variants](http://telefonicaid.github.io/tartare/img/gherkin-reporter-variants.png)
 
 
 ## Hooks
-Hooks are useful to set up and tear down your tests. Sometimes you need things to happen but it makes no sense
-to take part of the steps. For example, you may need to start the [SUT](http://en.wikipedia.org/wiki/System_under_test)
-but it makes no sense to put it as part of a `given` step, and it only need to be done once at the beginning 
-of the `feature`. The following is the list of the available hooks and where can they be used:
+**Hooks** are useful to set up and tear down your tests. Sometimes you need things to happen but it makes no sense
+to take part of the *steps*. For example, you may need to start the [SUT](http://en.wikipedia.org/wiki/System_under_test)
+but it makes no sense to put it as part of a *given step*, and it only need to be done once at the beginning 
+of the *feature*. The following is the list of the available *hooks* and where can they be used:
 
-| Hook name                            | Usage                                 |
-|--------------------------------------|---------------------------------------|
-| beforeAll/afterAll                   | Top level (outside Features)          |
-| beforeFeature/afterFeature           | Inside Features and outside Scenarios |
-| beforeEachScenario/afterEachScenario | Inside Features and outside Scenarios |
-| beforeScenario                       | Inside Scenarios                      |
-| beforeEachVariant/afterEachVariant   | Inside Scenarios                      |
+| *Hook* name                            | Usage                                     |
+|--------------------------------------|-------------------------------------------|
+| beforeAll/afterAll                   | Top level (outside *features*)            |
+| beforeFeature/afterFeature           | Inside *features* and outside *scenarios* |
+| beforeEachScenario/afterEachScenario | Inside *features* and outside *scenarios* |
+| beforeScenario                       | Inside *scenarios*                        |
+| beforeEachVariant/afterEachVariant   | Inside *scenarios*                        |
 
 
-Hooks behave as steps, understanding both synchronous and asynchronous code.
+*Hooks* behave as *steps*, understanding both synchronous and asynchronous code.
 
 ```javascript
 var steps = require('./steps-library');
@@ -301,30 +301,30 @@ feature('Addition', function() {
 
 ## Reporters
 Tartare comes with two reporters:
-* **gherkin**: a console reporter that outputs a coloured description of your features, scenarios and steps.
+* **gherkin**: a console reporter that outputs a coloured description of your *features*, *scenarios* and *steps*.
 * **gherkin-md**: a Markdown reporter to upload the test description and results to GitHub.
 
 ### gherkin
-This is the default reporter. It prints the features, scenarios and steps descriptions while they are being
-executed. It uses different symbols and colours for passed and failed steps, and prints the time taken by
-steps, variants, scenarios, features, and the whole suite to be executed.
+This is the default reporter. It prints the *feature*, *scenario* and *step* descriptions while they are being
+executed. It uses different symbols and colours for passed and failed *steps*, and prints the time taken by
+*steps*, *variants*, *scenarios*, *features*, and the whole suite to be executed.
 
-At the end it prints some stats about the features, scenarios, variants and steps your suite have, and how many
-of them have passed or failed, or how many are marked as manual. It also gives you some metrics about you suite.
-Keep in mind that Features having the same description are counted as the same feature. This means that you can
-split features without affecting the stats.
+At the end it prints some stats about the *features*, *scenarios*, *variants* and *steps* your suite have, and how many
+of them have passed or failed, or how many are marked as [manual](#manual-tests). It also gives you some metrics 
+about your suite. Keep in mind that *features* having the same description are counted as the same *feature*. 
+This means that you can split *features* without affecting the stats.
 
-In the case that some steps have failed (due to runtime errors or unfulfilled assertions), this reporter print 
+In the case that some *steps* have failed (due to runtime errors or unfulfilled assertions), this reporter prints 
 the list of failures together with their details. When an assertions fails, the exact output depends on the
 assertions library you have used.
 
-Finally, this reporter prints some warnings about Variants that are marked as bugs but are not failing, or
-variants that are failing but are not marked as bugs, just to help you to [manage your bugs](#bug-management).
+Finally, this reporter prints some warnings about *variants* that are marked as bugs but are not failing, or
+*variants* that are failing but are not marked as bugs, just to help you to [manage your bugs](#bug-management).
 
 Note that this reporter can use two colour themes: one for consoles with a dark background, and another one
 for clear backgrounds. You can set the theme to be used setting the value `dark` or `clear` to the 
 `TARTARE_THEME` environment variable, or by passing the `--theme` argument to the CLI. 
-Tartare defaults to the `dark` theme.
+Tartare defaults to the dark theme.
 
 ```bash
 $ TARTARE_THEME=clear tartare tests.js
@@ -334,14 +334,14 @@ $ tartare tests.js --theme clear
 ### gherkin-md
 When choosing the Markdown reporter, stats and test description is produced using the [GFM (GitHub Flavored
 Markdown)](https://help.github.com/articles/github-flavored-markdown/). This reporter do not really execute
-the test suite, but only reads all your features, scenarios, variants and steps to generate the report, so
+the test suite, but only reads all your *features*, *scenarios*, *variants* and *steps* to generate the report, so
 you get the report in a fraction of a second.
 
-This reporter puts the stats at the very beginning, followed by a TOC that links to each feature and scenario
+This reporter puts the stats at the very beginning, followed by a TOC that links to each *feature* and *scenario*
 in the report. Then a pretty test description is printed and finishes with a list of all the marked bugs,
-which are links to the related variant.
+which are links to the related *variant*.
 
-As in the case of the gherkin report, features with the same description are counted as the same feature.
+As in the case of the [gherkin report](#gherkin), *features* with the same description are counted as the same *feature*.
 
 The report is written to the stdout, so you would want to redirect it to a file:
 
@@ -352,7 +352,7 @@ $ tartare tests.js --reporter gherkin-md > report.md
 ![Markdown reporter output](http://telefonicaid.github.io/tartare/img/markdown-reporter.png)
 
 ## Running only selected tests
-You can mark **features** or **scenarios** to be executed alone by using `.only`.
+You can mark *features* or *scenarios* to be executed alone by using `.only`.
 
 ```javascript
 feature.only('Addition', function() {
@@ -368,7 +368,7 @@ feature('Multiplication', function() {
 });
 ```
 
-Only the first feature will be executed.
+Only the first *feature* will be executed.
 
 ```javascript
 feature('Addition', function() {
@@ -385,9 +385,9 @@ feature('Addition', function() {
 });
 ```
 
-Only the second scenario will be executed.
+Only the second *scenario* will be executed.
 
-You can also execute a single variant by adding an `only` property to the variant object with a truthy value.
+You can also execute a single *variant* by adding an `only` property to the *variant* object with a truthy value.
 
 ```javascript
 feature('Addition', function() {
@@ -403,10 +403,10 @@ feature('Addition', function() {
 });
 ```
 
-If needed, you can use `only` in several features, scenarios or variants and only the marked ones will be executed.
+If needed, you can use `only` in several *features*, *scenarios* or *variants* and only the marked ones will be executed.
 
 ## Skipping tests
-Features, scenarios and variants can also be marked with `.skip`/`skip: true` and they will be completely excluded
+*Features*, *scenarios* and *variants* can also be marked with `.skip`/`skip: true` and they will be completely excluded
 from execution. It works the same as commenting out the skipped tests: they don't appear on the reports nor are
 counted on stats.
 
@@ -431,7 +431,7 @@ feature('Addition', function() {
 
 ## Manual tests
 Although sometimes we have to do manual testing, that doesn't mean that your manual tests don't appear on
-the report. Simply describe your manual tests without a callback, and they will appear on the report tagged
+the report. Simply describe your manual tests without passing a function, and they will appear on the report tagged
 as manual tests.
 
 ```javascript
@@ -445,7 +445,7 @@ feature('Addition', function() {
 });
 ```
 
-In you want to mark features, scenarios or variants as manual tests even when their steps are implemented
+In you want to mark *features*, *scenarios* or *variants* as manual tests even when their *steps* are implemented
 you can use `.manual`/`manual: true`.
 
 ```javascript
@@ -467,12 +467,12 @@ feature('Addition', function() {
 });
 ```
 
-Note that marking a variant as manual, its parent scenario and feature are automatically marked as manual, even
-when they can have implemented tests, and they are counted as manual on stats.
+Note that marking a *variant* as manual, its parent *scenario* and *feature* are automatically marked as manual, even
+when they may have implemented tests, and they are counted as manual on stats.
 
 
 ## Bug management
-In order to help you to manage bugs, Tartare allows you to mark features, scenarios and variants as minor or major
+In order to help you to manage bugs, Tartare allows you to mark *features*, *scenarios* and *variants* as minor or major
 bugs. When some of your tests detects a bug, it fails (because their assertions fail). Then you can mark the test
 as a major bug to assign it with a bug id from your bug tracking system, and it will be printed on the report.
 It also prevents the report from warning about failing tests that are not marked as bugs.
@@ -481,8 +481,8 @@ Sometimes a bug has a very low relevance and you don't want the buggy test to co
 want to track the bug. In those cases, mark the test as a minor bug and, in addition to assign it with a bug id,
 it won't be executed (to avoid the failure) and will count as passed on stats.
 
-To mark features and scenarios as bugs, use the methods `majorBug('bugId')` or `minorBug('bugId')` where bugId is a 
-string.
+To mark *features* and *scenarios* as bugs, use the methods `majorBug('bugId')` or `minorBug('bugId')` where `bugId` 
+is a string.
 
 ```javascript
 feature('Addition', function() {
@@ -499,7 +499,7 @@ feature('Addition', function() {
 });
 ```
 
-You can also mark variants as minor or major bugs by including the `majorBug` or `minorBug` properties whose values
+You can also mark *variants* as minor or major bugs by including the `majorBug` or `minorBug` properties whose values
 will be a string.
 
 ```javascript
@@ -516,7 +516,7 @@ feature('Addition', function() {
 });
 ```
 
-If you run Tartare with the `--bugid-link` parameter passing the base URL of you bug tracking system, 
+If you run Tartare with the `--bugid-link` parameter passing the base URL of your bug tracking system, 
 the markdown report will include links by appending the bug id passed to `majorBug`/`minorBug`
 to the base url. If such a base url has the `%s` placeholder, the bug id will be placed there.
 
@@ -525,13 +525,13 @@ $ tartare tests.js --reporter gherkin-md --bugid-link "http://bugtrackingsystem/
 ```
 
 ## Tags and filters
-You can assign features, scenarios and variants with tags, understood as simple short strings, that help you
+You can assign *features*, *scenarios* and *variants* with tags, understood as simple short strings, that help you
 to organize, categorize, or whatever your tests. The goal of tagging tests is to use filters in order to
 select tests to be executed. Using `only` is a very simple way of filtering, but tags gives you more choices.
 
-Assign tags to features or scenarios by using the method `tag(tags)` where `tags` can be a string, 
+Assign tags to *features* or *scenarios* by using the method `tag(tags)` where `tags` can be a string, 
 an array of strings, or several string arguments, allowing you to assign more that one tag. To assign tags
-to a variant, include the `tag` property whose value can be a string or an array of strings.
+to a *variant*, include the `tag` property whose value can be a string or an array of strings.
 
 ```javascript
 feature('Addition', function() {
@@ -615,14 +615,14 @@ assigned to any variable, it works with modules that modify prototypes or add pr
 `global` object.
 
 #### -R, --reporter
-Allows you to specify the reporter that will be used, defaulting to "gherkin".
+Allows you to specify the reporter that will be used, defaulting to *[gherkin](#gherkin)*.
 
 #### -t, --timeout
-Specifies the step or hook timeout (in milliseconds), defaulting to 10 seconds. If a step or hook does not
+Specifies the *step* or *hook* timeout (in milliseconds), defaulting to 10 seconds. If a *step* or *hook* does not
 finish before this timeout, it is considered as failed.
 
 #### -f, --filter
-Allows you to specify a filter to select what tests to run. See more [here](#tags-and-filters)
+Allows you to specify a [filter](#tags-and-filters) to select what tests to run.
 
 #### --theme
 When using the default *gherkin* reporter, this options allows you to choose the color theme. It can takes the values
@@ -634,8 +634,8 @@ reporting all the failures at the end, use this option.
 
 
 ## Changing the timeout programmatically
-If you need to change the timeout passed through the `-t, --timeout` argument for a specific feature, scenario,
-step, or hook, invoke `this.timeout(20000)` passing the new timeout in milliseconds. 
+If you need to change the timeout passed through the `-t, --timeout` argument for a specific *feature*, *scenario*,
+*step*, or *hook*, invoke `this.timeout(20000)` passing the new timeout in milliseconds. 
 
 ```javascript
 feature('Addition', function() {
@@ -673,8 +673,8 @@ RegExp.escape('(a+^)$*/'); // => '\\(a\\+\\^\\)\\$\\*\\/'
 ```
 
 Tartare provides you with some handy global functions:
-* `sleep(ms)`: it is a "synchronized" version of `setTimeout` that can be used inside steps and hooks as synchronous
-  code.
+* `sleep(ms)`: it is a "synchronized" version of `setTimeout` that can be used inside *steps* and *hooks* as
+  synchronous code.
 
 ```javascript
   given('I have entered 50 into the calculator', function() {
@@ -696,8 +696,8 @@ $ TARTARE_MY_COOL_VARIABLE=foo tartare tests.js
 $ tartare tests.js --my-cool-variable foo
 ```
 
-* `synchronize(module)`: As explained [above](filling-in-the-steps), this function wraps the functions exported by
-  a module so they can be invoked as synchronous functions from inside steps and hooks (they can still be invoked 
+* `synchronize(module)`: As explained [above](#filling-in-the-steps), this function wraps the functions exported by
+  a module so they can be invoked as synchronous functions from inside *steps* and *hooks* (they can still be invoked 
   as asynchronous functions if invoked with a callback). It only works with function following the CPS pattern 
   (with a callback as the last argument) and you can prevent a function from being "synchronized" by adding a 
   property named `dontSync` with a truthy value to the function.
@@ -747,7 +747,7 @@ var tartare = new Tartare({
 The whole list of supported options is:
 * `reporter`: reporter name, defaults to `gherkin`.
 * `timeout`: timeout in milliseconds.
-* `bail`: bail on the first step failure.
+* `bail`: bail on the first *step* failure.
 * `filter`: expression to filter tests with.
 * `useColors`: set whether colors can be used on console reporters.
 * `enableTimeouts`: enable timeouts.
@@ -812,7 +812,9 @@ feature('Addition', function() {
       element(by.model('text')).sendKeys('abc');;
       steps.myCoolFn('foo', 'bar');
     });
+
     [...]
+
   });
 });
 ```
