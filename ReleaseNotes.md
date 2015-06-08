@@ -1,5 +1,8 @@
 # RELEASE NOTES
 
+## v0.9.0 / 8 Jun 2015
+* Added full documentation on the README file.
+
 ## v0.8.0 / 13 Feb 2015
 * Fixed gherkin-md reporter to finish without calling `process.exit`.
 * Added execution time for variants, scenarios, features and for the whole suite in the `gherkin` reporter.

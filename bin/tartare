@@ -45,10 +45,11 @@ function _printHelp() {
   console.log('    -f, --filter <filter_str>  run only tests matching <filter_str>');
   console.log('    -c, --colors               force enabling of colors');
   console.log('    -C, --no-colors            force disabling of colors');
+  console.log('    --theme (dark|clear)       set the color theme to be used with the gherkin reporter');
   console.log('    -B, --no-bail              prevent from bailing after first step failure');
   console.log('    --no-exit                  require a clean shutdown of the event loop: ' +
       'Tartare will not call process.exit');
-  console.log('    --no-timeouts              disables timeouts');
+  console.log('    --no-timeouts              disable timeouts');
   console.log('    --recursive                include sub directories');
   console.log('    --reporters                display available reporters');
   console.log();
