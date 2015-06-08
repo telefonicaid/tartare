@@ -1,6 +1,6 @@
 {
   "name": "tartare",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "Gherkin-like BDD testing framework for JavaScript based on Mocha",
   "license": "Apache-2.0",
   "author": "Jose Antonio Rodríguez Fernández <joseantonio.rodriguezfernandez@telefonica.com>",
@@ -31,14 +31,14 @@
     "framework"
   ],
   "dependencies": {
-    "cli-color": "0.3.2",
+    "cli-color": "1.0.0",
     "jsep": "0.3.0",
-    "mocha": "2.1.0",
-    "synchronize": "0.9.9",
-    "underscore": "1.7.0"
+    "mocha": "2.2.5",
+    "synchronize": "0.9.11",
+    "underscore": "1.8.3"
   },
   "devDependencies": {
-    "eslint": "^0.11.0",
-    "jscs": "^1.9.0"
+    "eslint": "^0.22.1",
+    "jscs": "^1.13.1"
   }
 }
