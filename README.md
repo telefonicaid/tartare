@@ -602,6 +602,7 @@ $ tartare tests.js --filter -bug
     -f, --filter <filter_str>  run only tests matching <filter_str>
     -c, --colors               force enabling of colors
     -C, --no-colors            force disabling of colors
+    --no-interactive           disable interactive features
     --theme (dark|clear)       set the color theme to be used with the gherkin reporter
     -B, --no-bail              prevent from bailing after first step failure
     --no-exit                  require a clean shutdown of the event loop: Tartare will not call process.exit
@@ -626,8 +627,13 @@ finish before this timeout, it is considered as failed.
 Allows you to specify a [filter](#tags-and-filters) to select what tests to run.
 
 #### --theme
-When using the default *gherkin* reporter, this options allows you to choose the color theme. It can takes the values
+When using the default *gherkin* reporter, this options allows you to choose the color theme. It can take the value
 `dark` (default) for consoles with a dark background, or `clear` for consoles with a clear background.
+
+#### --no-interactive
+Disable interactive features such as printing step descriptions during their execution, reprinting the line once
+the step has finished with the final result and duration. This kind of features uses the console in a way that may not
+work properly on some console emulators.
 
 #### -B, --no-bail
 By default, Tartare stops the test suite after the first failure. If you want Tartare to execute the whole suite,
@@ -751,6 +757,7 @@ The whole list of supported options is:
 * `bail`: bail on the first *step* failure.
 * `filter`: expression to filter tests with.
 * `useColors`: set whether colors can be used on console reporters.
+* `interactive`: enable interactive features.
 * `enableTimeouts`: enable timeouts.
 * Any other options will be available through the `getTartareOptions` function.
 
