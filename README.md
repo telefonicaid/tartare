@@ -6,7 +6,8 @@
 [tartare-mock](https://github.com/telefonicaid/tartare-mock/) |
 [tartare-util](https://github.com/telefonicaid/tartare-util/) |
 [tartare-collections](https://github.com/telefonicaid/tartare-collections/) |
-[tartare-logs](https://github.com/telefonicaid/tartare-logs/)
+[tartare-logs](https://github.com/telefonicaid/tartare-logs/) |
+[protractor-tartare](https://github.com/telefonicaid/protractor-tartare/)
 
 ---
 
@@ -760,23 +761,23 @@ Note that you can access to the underlying Mocha object through `tartare.mocha`.
 
 ## Testing web apps with Tartare + Protractor
 You can use Tartare as a testing framework with [Protractor](https://angular.github.io/protractor) in order to
-describe your tests using the Gherkin syntax while taken advantage of Protractor to test AngularJS applications.
-This feature is not integrated with Protractor upstream yet, so you need to use this
-[Protractor fork](https://github.com/telefonicaid/protractor/tree/tartare) (tartare brach) adding this 
-dependency to your package.json file:
+describe your tests using the Gherkin syntax while taking advantage of Protractor to test AngularJS applications.
 
-```json
-  "dependencies": {
-    "protractor": "telefonicaid/protractor#tartare",
-    "tartare": "latest"
-  }
+Firstly, install both Protractor and the [Protractor Tartare Framework](https://github.com/telefonicaid/protractor-tartare)
+using `npm`:
+
+```sh
+$ npm install --save-dev protractor protractor-tartare tartare
 ```
 
-Then you have to set `tartare` as the testing framework in the Protractor config file. You can also pass options
-to Tartare with `tartareOpts`.
+Note that you still need Tartare as a dependency.
+
+Then you have to set `custom` as the testing framework in the Protractor config file and set the path to the
+Protractor Tartare Framework. You can also pass options to Tartare with `tartareOpts`.
 
 ```javascript
-  framework: 'tartare',
+  framework: 'custom',
+  frameworkPath: require.resolve('protractor-tartare'),
   tartareOpts: {
     reporter: 'gherkin',
     timeout: 15000
