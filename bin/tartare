@@ -23,8 +23,6 @@
 
 'use strict';
 
-/* eslint-disable no-process-exit */
-
 var Tartare = require('..'),
     fs = require('fs'),
     path = require('path');

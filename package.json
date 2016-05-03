@@ -31,14 +31,14 @@
     "framework"
   ],
   "dependencies": {
-    "cli-color": "1.0.0",
-    "jsep": "0.3.0",
-    "mocha": "2.2.5",
-    "synchronize": "0.9.11",
-    "underscore": "1.8.3"
+    "cli-color": "^1.1.0",
+    "jsep": "^0.3.0",
+    "mocha": "^2.4.5",
+    "synchronize": "^0.9.15",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
-    "eslint": "^0.22.1",
-    "jscs": "^1.13.1"
+    "eslint": "^2.9.0",
+    "jscs": "^3.0.3"
   }
 }
