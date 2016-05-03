@@ -5,6 +5,7 @@
   "rules": {
     "no-use-before-define": [2, "nofunc"],
     "quotes": [2, "single"],
-    "no-underscore-dangle": 0
+    "no-underscore-dangle": 0,
+    "no-unused-vars": [2, {"args": "none"}]
   }
 }

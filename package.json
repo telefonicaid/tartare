@@ -34,8 +34,7 @@
     "cli-color": "^1.1.0",
     "jsep": "^0.3.0",
     "mocha": "^2.4.5",
-    "synchronize": "^0.9.15",
-    "underscore": "^1.8.3"
+    "synchronize": "^0.9.15"
   },
   "devDependencies": {
     "eslint": "^2.9.0",
