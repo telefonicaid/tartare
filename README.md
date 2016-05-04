@@ -310,7 +310,7 @@ This is the default reporter. It prints the *feature*, *scenario* and *step* des
 executed. It uses different symbols and colours for passed and failed *steps*, and prints the time taken by
 *steps*, *variants*, *scenarios*, *features*, and the whole suite to be executed.
 
-At the end it prints some stats about the *features*, *scenarios*, *variants* and *steps* your suite have, and how many
+At the end it prints some stats about the *features*, *scenarios*, *variants* and *steps* your suite has, and how many
 of them have passed or failed, or how many are marked as [manual](#manual-tests). It also gives you some metrics 
 about your suite. Keep in mind that *features* having the same description are counted as the same *feature*. 
 This means that you can split *features* without affecting the stats.
@@ -602,8 +602,8 @@ $ tartare tests.js --filter -bug
     -f, --filter <filter_str>  run only tests matching <filter_str>
     -c, --colors               force enabling of colors
     -C, --no-colors            force disabling of colors
+    --theme (dark|clear)       set the color theme to be used with the gherkin reporter [dark]
     --no-interactive           disable interactive features
-    --theme (dark|clear)       set the color theme to be used with the gherkin reporter
     -B, --no-bail              prevent from bailing after first step failure
     --no-exit                  require a clean shutdown of the event loop: Tartare will not call process.exit
     --no-timeouts              disables timeouts
@@ -757,9 +757,13 @@ The whole list of supported options is:
 * `bail`: bail on the first *step* failure.
 * `filter`: expression to filter tests with.
 * `useColors`: set whether colors can be used on console reporters.
+* `theme`: set the color theme to be used with the gherkin reporter (dark or clear).
 * `interactive`: enable interactive features.
 * `enableTimeouts`: enable timeouts.
 * Any other options will be available through the `getTartareOptions` function.
+
+You can also use the following environment variables: `TARTARE_REPORTER`, `TARTARE_TIMEOUT`, `TARTARE_BAIL`,
+`TARTARE_FILTER`, `TARTARE_USE_COLORS`, `TARTARE_THEME`, `TARTARE_INTERACTIVE`, `TARTARE_ENABLE_TIMEOUTS`.
 
 The `addFiles` method accepts both a string (a single file) or an array of strings.
 
