@@ -1,5 +1,14 @@
 # RELEASE NOTES
 
+## v1.0.0 / 5 May 2016
+* Added documentation about how to use Tartare with the new `protractor-tartare` package, which allows you to use
+  Tartare along with Protractor (the [Protractor fork](https://github.com/telefonicaid/protractor/tree/tartare)
+  won't be used anymore).
+* Every option that can be passed to the Tartare constructor can also be set using environment variables.
+* A new `interactive` option has been added to prevent reporters from using the console in a way that may break
+  some console emulators.
+* The gherkin-md reporter supports reporter-specific options to set the output file and the `bugidLink` parameter.
+
 ## v0.9.0 / 8 Jun 2015
 * Added full documentation on the README file.
 
@@ -64,8 +73,7 @@ tartare.run(function(failures) {
 * From now on, Tartare can be invoked as a CLI program, instead of passing in a Tartare reporter to Mocha.
   Enter `tartare -h` in a console to see available options.
 * A  new **tagging and filtering** functionality has been added to Tartare, so features, scenarios and variants
-  can be tagged
-  and then those tags can be used to filter test execution by using the `--filter` option.
+  can be tagged and then those tags can be used to filter test execution by using the `--filter` option.
     - Tag features and scenarios by calling the `tag` method after its definition:
       `scenario('myscenario', function() { }).tag('mytag');`
     - Tag variants by adding a `tag` property to the dataset object:
