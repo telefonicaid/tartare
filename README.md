@@ -333,8 +333,8 @@ $ tartare tests.js --theme clear
 ```
 
 ### gherkin-md
-When choosing the Markdown reporter, stats and test description is produced using the [GFM (GitHub Flavored
-Markdown)](https://help.github.com/articles/github-flavored-markdown/). This reporter do not really execute
+When choosing the Markdown reporter, stats and test description is produced by using the [GFM (GitHub Flavored
+Markdown)](https://help.github.com/articles/github-flavored-markdown/). This reporter do not actually execute
 the test suite, but only reads all your *features*, *scenarios*, *variants* and *steps* to generate the report, so
 you get the report in a fraction of a second.
 
@@ -344,10 +344,23 @@ which are links to the related *variant*.
 
 As in the case of the [gherkin report](#gherkin), *features* with the same description are counted as the same *feature*.
 
-The report is written to the stdout, so you would want to redirect it to a file:
+By default, the report is written to the stdout, so you would want to redirect it to a file:
 
 ```bash
 $ tartare tests.js --reporter gherkin-md > report.md
+```
+
+But you can use the `output` reporter option to set the file where the report will be written:
+
+```bash
+$ tartare tests.js --reporter gherkin-md --reporter-options output=report.md
+```
+
+You can also use the `bugidLink` reporter option to set the base URL of your bug tracking system 
+(see [Bug Management](#bug-management) below):
+
+```bash
+$ tartare tests.js --reporter gherkin-md --reporter-options output=report.md,bugidLink=http://bugtrackingsystem/
 ```
 
 ![Markdown reporter output](http://telefonicaid.github.io/tartare/img/markdown-reporter.png)
@@ -517,12 +530,13 @@ feature('Addition', function() {
 });
 ```
 
-If you run Tartare with the `--bugid-link` parameter passing the base URL of your bug tracking system, 
-the markdown report will include links by appending the bug id passed to `majorBug`/`minorBug`
-to the base url. If such a base url has the `%s` placeholder, the bug id will be placed there.
+When using the [markdown reporter](#gherkin-md) you can pass the `bugidLink` reporter option with the base URL of 
+your bug tracking system, so the bug ids will be links formed by appending the bug id passed to the
+`majorBug`/`minorBug` functions to the base url. If such a base url has the `%s` placeholder,
+the bug id will be placed there.
 
 ```bash
-$ tartare tests.js --reporter gherkin-md --bugid-link "http://bugtrackingsystem/%s" > report.md
+$ tartare tests.js --reporter gherkin-md --reporter-options output=report.md,bugidLink=http://bugtrackingsystem/%s
 ```
 
 ## Tags and filters
@@ -594,21 +608,22 @@ $ tartare tests.js --filter -bug
 
   Options:
 
-    -h, --help                 output usage information
-    -V, --version              output the version number
-    -r, --require              require the given module
-    -R, --reporter <name>      specify the reporter to use [gherkin]
-    -t, --timeout <ms>         set test timeout in milliseconds [10000]
-    -f, --filter <filter_str>  run only tests matching <filter_str>
-    -c, --colors               force enabling of colors
-    -C, --no-colors            force disabling of colors
-    --theme (dark|clear)       set the color theme to be used with the gherkin reporter [dark]
-    --no-interactive           disable interactive features
-    -B, --no-bail              prevent from bailing after first step failure
-    --no-exit                  require a clean shutdown of the event loop: Tartare will not call process.exit
-    --no-timeouts              disables timeouts
-    --recursive                include sub directories
-    --reporters                display available reporters
+    -h, --help                              output usage information
+    -V, --version                           output the version number
+    -r, --require                           require the given module
+    -R, --reporter <name>                   specify the reporter to use [gherkin]
+    -O, --reporter-options <k=v,k2=v2,...>  reporter-specific options
+    -t, --timeout <ms>                      set test timeout in milliseconds [10000]
+    -f, --filter <filter_str>               run only tests matching <filter_str>
+    -c, --colors                            force enabling of colors
+    -C, --no-colors                         force disabling of colors
+    --theme (dark|clear)                    set the color theme to be used with the gherkin reporter [dark]
+    --no-interactive                        disable interactive features
+    -B, --no-bail                           prevent from bailing after first step failure
+    --no-exit                               require a clean shutdown of the event loop: Tartare will not call process.exit
+    --no-timeouts                           disables timeouts
+    --recursive                             include sub directories
+    --reporters                             display available reporters
 ```
 
 #### -r, --require
@@ -753,6 +768,7 @@ var tartare = new Tartare({
 
 The whole list of supported options is:
 * `reporter`: reporter name, defaults to `gherkin`.
+* `reporterOptions`: reporter-specific options. It can be an object or a string with a list of key=value pairs separated by commas.
 * `timeout`: timeout in milliseconds.
 * `bail`: bail on the first *step* failure.
 * `filter`: expression to filter tests with.
@@ -762,8 +778,8 @@ The whole list of supported options is:
 * `enableTimeouts`: enable timeouts.
 * Any other options will be available through the `getTartareOptions` function.
 
-You can also use the following environment variables: `TARTARE_REPORTER`, `TARTARE_TIMEOUT`, `TARTARE_BAIL`,
-`TARTARE_FILTER`, `TARTARE_USE_COLORS`, `TARTARE_THEME`, `TARTARE_INTERACTIVE`, `TARTARE_ENABLE_TIMEOUTS`.
+You can also use the following environment variables: `TARTARE_REPORTER`, `TARTARE_REPORTER_OPTIONS`, `TARTARE_TIMEOUT`,
+`TARTARE_BAIL`, `TARTARE_FILTER`, `TARTARE_USE_COLORS`, `TARTARE_THEME`, `TARTARE_INTERACTIVE`, `TARTARE_ENABLE_TIMEOUTS`.
 
 The `addFiles` method accepts both a string (a single file) or an array of strings.
 

@@ -35,22 +35,23 @@ var supportedReporters = {
 function _printHelp() {
   console.log('\n  Usage: tartare [options] [files]');
   console.log('\n  Options:\n');
-  console.log('    -h, --help                 output usage information');
-  console.log('    -V, --version              output the version number');
-  console.log('    -r, --require              require the given module');
-  console.log('    -R, --reporter <name>      specify the reporter to use [gherkin]');
-  console.log('    -t, --timeout <ms>         set test timeout in milliseconds [10000]');
-  console.log('    -f, --filter <filter_str>  run only tests matching <filter_str>');
-  console.log('    -c, --colors               force enabling of colors');
-  console.log('    -C, --no-colors            force disabling of colors');
-  console.log('    --theme (dark|clear)       set the color theme to be used with the gherkin reporter');
-  console.log('    --no-interactive           disable interactive features');
-  console.log('    -B, --no-bail              prevent from bailing after first step failure');
-  console.log('    --no-exit                  require a clean shutdown of the event loop: ' +
+  console.log('    -h, --help                              output usage information');
+  console.log('    -V, --version                           output the version number');
+  console.log('    -r, --require                           require the given module');
+  console.log('    -R, --reporter <name>                   specify the reporter to use [gherkin]');
+  console.log('    -O, --reporter-options <k=v,k2=v2,...>  reporter-specific options');
+  console.log('    -t, --timeout <ms>                      set test timeout in milliseconds [10000]');
+  console.log('    -f, --filter <filter_str>               run only tests matching <filter_str>');
+  console.log('    -c, --colors                            force enabling of colors');
+  console.log('    -C, --no-colors                         force disabling of colors');
+  console.log('    --theme (dark|clear)                    set the color theme to be used with the gherkin reporter');
+  console.log('    --no-interactive                        disable interactive features');
+  console.log('    -B, --no-bail                           prevent from bailing after first step failure');
+  console.log('    --no-exit                               require a clean shutdown of the event loop: ' +
       'Tartare will not call process.exit');
-  console.log('    --no-timeouts              disable timeouts');
-  console.log('    --recursive                include sub directories');
-  console.log('    --reporters                display available reporters');
+  console.log('    --no-timeouts                           disable timeouts');
+  console.log('    --recursive                             include sub directories');
+  console.log('    --reporters                             display available reporters');
   console.log();
   console.log('  Filter syntax:');
   console.log('  - Tags can only contain uppercase/lowercase letters, numbers, and underscore.');
@@ -117,6 +118,10 @@ for (var i = 2; i < process.argv.length; i++) {
           Object.keys(supportedReporters).join(', ') + '\n');
         process.exit(-1);
       }
+      break;
+    case '-O':
+    case '--reporter-options':
+      opts.reporterOptions = process.argv[++i];
       break;
     case '-t':
     case '--timeout':
