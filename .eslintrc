@@ -2,10 +2,38 @@
   "env": {
     "node": true
   },
+  "extends": "google",
+  "plugins": ["jsdoc"],
   "rules": {
-    "no-use-before-define": [2, "nofunc"],
-    "quotes": [2, "single"],
-    "no-underscore-dangle": 0,
-    "no-unused-vars": [2, {"args": "none"}]
+    "max-len": ["error", {
+      "code": 120,
+      "ignoreTrailingComments": true,
+      "ignoreUrls": true
+    }],
+    "quotes": ["error", "single", {
+      "avoidEscape": true,
+      "allowTemplateLiterals": true
+    }],
+    "no-shadow": "error",
+    "require-jsdoc": "off",
+    "valid-jsdoc": "off",
+    "jsdoc/check-param-names": "error",
+    "jsdoc/check-tag-names": "error",
+    "jsdoc/check-types": "error",
+    "jsdoc/newline-after-description": "off",
+    "jsdoc/require-description-complete-sentence": "warn",
+    "jsdoc/require-hyphen-before-param-description": "off",
+    "jsdoc/require-param": "error",
+    "jsdoc/require-param-description": "off",
+    "jsdoc/require-param-type": "error",
+    "jsdoc/require-returns-description": "off",
+    "jsdoc/require-returns-type": "error"
+  },
+  "settings": {
+    "jsdoc": {
+      "tagNamePreference": {
+        "returns": "return"
+      }
+    }
   }
 }

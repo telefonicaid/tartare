@@ -9,7 +9,7 @@
     "tartare": "./bin/tartare"
   },
   "scripts": {
-    "lint": "jscs index.js bin lib && eslint index.js bin lib",
+    "lint": "eslint index.js bin lib",
     "prepublish": "npm run lint"
   },
   "repository": {
@@ -34,11 +34,12 @@
     "cli-color": "^1.1.0",
     "jsep": "^0.3.0",
     "mkdirp": "^0.5.1",
-    "mocha": "^2.4.5",
+    "mocha": "^2.5.3",
     "synchronize": "^0.9.15"
   },
   "devDependencies": {
-    "eslint": "^2.9.0",
-    "jscs": "^3.0.3"
+    "eslint": "^2.13.1",
+    "eslint-config-google": "^0.6.0",
+    "eslint-plugin-jsdoc": "^2.3.1"
   }
 }

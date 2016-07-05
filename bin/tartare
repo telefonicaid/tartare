@@ -23,9 +23,9 @@
 
 'use strict';
 
-var Tartare = require('..'),
-    fs = require('fs'),
-    path = require('path');
+var Tartare = require('..');
+var fs = require('fs');
+var path = require('path');
 
 var supportedReporters = {
   'gherkin': 'outputs coloured Gherkin syntax',
@@ -73,9 +73,9 @@ function _printVersion() {
 
 function _printReporters() {
   console.log('\n  Tartare reporters:\n');
-  for (var reporter in supportedReporters) {
+  Object.keys(supportedReporters).forEach(function(reporter) {
     console.log('    ' + reporter + ' - ' + supportedReporters[reporter]);
-  }
+  });
   console.log();
   process.exit(0);
 }
@@ -113,9 +113,10 @@ for (var i = 2; i < process.argv.length; i++) {
     case '-R':
     case '--reporter':
       opts.reporter = process.argv[++i];
+      opts.reporter = opts.reporter || 'gherkin';
       if (!supportedReporters[opts.reporter]) {
         console.error('\nUnsupported reporter "' + opts.reporter + '". Valid reporters are: ' +
-          Object.keys(supportedReporters).join(', ') + '\n');
+            Object.keys(supportedReporters).join(', ') + '\n');
         process.exit(-1);
       }
       break;
