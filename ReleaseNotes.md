@@ -1,5 +1,8 @@
 # RELEASE NOTES
 
+## v1.0.1 / 8 Jul 2016
+* Fixed a bug that allowed hooks to be executed in features, scenarios and variants marked as minor bugs.
+
 ## v1.0.0 / 5 May 2016
 * Added documentation about how to use Tartare with the new `protractor-tartare` package, which allows you to use
   Tartare along with Protractor (the [Protractor fork](https://github.com/telefonicaid/protractor/tree/tartare)
