@@ -492,8 +492,9 @@ as a major bug to assign it with a bug id from your bug tracking system, and it 
 It also prevents the report from warning about failing tests that are not marked as bugs.
 
 Sometimes a bug has a very low relevance and you don't want the buggy test to count as failed, while you still
-want to track the bug. In those cases, mark the test as a minor bug and, in addition to assign it with a bug id,
-it won't be executed (to avoid the failure) and will count as passed on stats.
+want to track the bug. In those cases, mark the test as a minor bug and, in addition to assigning it with a bug id,
+it won't be executed (to avoid the failure) and will count as passed on stats. Hooks belonging to a test marked as
+minor bug won't be executed either.
 
 To mark *features* and *scenarios* as bugs, use the methods `majorBug('bugId')` or `minorBug('bugId')` where `bugId` 
 is a string.
