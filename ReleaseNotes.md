@@ -1,5 +1,8 @@
 # RELEASE NOTES
 
+## v1.0.2 / 13 Jul 2016
+* Fixed a bug that caused hooks to throw errors when running with `protractor-tartare`.
+
 ## v1.0.1 / 8 Jul 2016
 * Fixed a bug that allowed hooks to be executed in features, scenarios and variants marked as minor bugs.
 
