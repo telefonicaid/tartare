@@ -3,6 +3,5 @@ node_modules/
 .idea/
 .gitignore
 .npmignore
-.jscsrc
 .eslintrc
 presentation/
