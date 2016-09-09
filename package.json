@@ -10,7 +10,9 @@
   },
   "scripts": {
     "lint": "eslint index.js bin lib",
-    "prepublish": "npm run lint"
+    "changelog": "conventional-changelog --preset jshint --infile CHANGELOG.md --same-file",
+    "changelog-gh-release": "conventional-changelog --preset jshint --config .changelog.js",
+    "release": "release-it"
   },
   "repository": {
     "type": "git",
@@ -38,8 +40,10 @@
     "synchronize": "^0.9.15"
   },
   "devDependencies": {
+    "conventional-changelog-cli": "^1.2.0",
     "eslint": "^2.13.1",
     "eslint-config-google": "^0.6.0",
-    "eslint-plugin-jsdoc": "^2.3.1"
+    "eslint-plugin-jsdoc": "^2.3.1",
+    "release-it": "^2.4.3"
   }
 }

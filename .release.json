@@ -1,0 +1,19 @@
+{
+  "non-interactive": false,
+  "src": {
+    "beforeStartCommand": "npm run lint",
+    "beforeStageCommand": "npm run changelog"
+  },
+  "commitMessage": "[[CHORE]] Bump version to %s",
+  "tagName": "v%s",
+  "tagAnnotation": "v%s",
+  "github": {
+    "release": true,
+    "releaseName": "v%s",
+    "tokenRef": "RELEASEIT_GITHUB_TOKEN"
+  },
+  "changelogCommand": "npm run -s changelog-gh-release",
+  "npm": {
+    "publish": true
+  }
+}
