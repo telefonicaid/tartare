@@ -1,5 +1,8 @@
 # RELEASE NOTES
 
+## v1.0.3 / 9 Sep 2016
+* Fixed a bug that prevented Tartare from waiting for promises to be resolved when steps or hooks return promises.
+
 ## v1.0.2 / 13 Jul 2016
 * Fixed a bug that caused hooks to throw errors when running with `protractor-tartare`.
 
