@@ -40,6 +40,7 @@ a couple of Gherkin *reporters*, among other goodies.
 - [Other goodies](#other-goodies)
 - [Using Tartare programmatically](#using-tartare-programmatically)
 - [Testing web apps with Tartare + Protractor](#testing-web-apps-with-tartare--protractor)
+- [Using Tartare with TypeScript](#using-tartare-with-typescript)
 
 ---
 
@@ -674,6 +675,8 @@ feature('Addition', function() {
 });
 ```
 
+Your can also get the current timeout invoking `this.timeout()`.
+
 ## Other goodies
 Tartare augments the `String` and `RegExp` objects with useful methods not available in ECMAScript 5:
 * `String.prototype.startsWith(substr [, position])`: determines whether a string begins with the characters 
@@ -882,6 +885,17 @@ Now you want to make an assertion over the second element of the `list` property
 
 ```javascript
 expect(myPromise.get('list.1')).to.eventually.equal('foo');
+```
+
+## Using Tartare with TypeScript
+To use Tartare with TypeScript you have to install Tartare's typings as a global dependency, so the compiler
+is able to find types for the Tartare's global functions (feature, scenario, given, when, getTartareOptions, etc.).
+
+```bash
+$ npm install tartare
+$ npm install typings
+
+$ node_modules/.bin/typings install npm~tartare --global
 ```
 
 ---

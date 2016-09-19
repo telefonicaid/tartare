@@ -1,0 +1,6 @@
+{
+    "name": "tartare",
+    "global": true,
+    "main": "lib/tartare.d.ts",
+    "homepage": "https://github.com/telefonicaid/tartare"
+}
