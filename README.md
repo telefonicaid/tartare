@@ -895,7 +895,7 @@ is able to find types for the Tartare's global functions (feature, scenario, giv
 $ npm install tartare
 $ npm install typings
 
-$ node_modules/.bin/typings install npm~tartare --global
+$ node_modules/.bin/typings install github:telefonicaid/tartare#vX.Y.Z --global
 ```
 
 ---
