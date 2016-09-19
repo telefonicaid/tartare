@@ -1,3 +1,17 @@
+<a name="1.1.0"></a>
+# [1.1.0](https://github.com/telefonicaid/tartare/compare/v1.0.3...v1.1.0) (2016-09-19)
+
+
+### Bug Fixes
+
+* `this` is not working on steps when the function is wrapped into a promise ([d722313](https://github.com/telefonicaid/tartare/commit/d722313))
+
+### Features
+
+* Add declarations to use Tartare with TypeScript ([ca80350](https://github.com/telefonicaid/tartare/commit/ca80350))
+
+
+
 <a name="1.0.3"></a>
 ## [1.0.3](https://github.com/telefonicaid/tartare/compare/v1.0.2...v1.0.3) (2016-09-09)
 

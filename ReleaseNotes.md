@@ -1,5 +1,9 @@
 # RELEASE NOTES
 
+## v1.1.0 / 19 Sep 2016
+* Added declarations to use Tartare with TypeScript.
+* Fixed a bug that prevented `this` from working on steps when the function is wrapped into a promise.
+
 ## v1.0.3 / 9 Sep 2016
 * Fixed a bug that prevented Tartare from waiting for promises to be resolved when steps or hooks return promises.
 
