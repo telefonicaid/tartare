@@ -1,5 +1,8 @@
 # RELEASE NOTES
 
+## v1.1.2 / 27 Sep 2016
+* Improved TypeScript declarations.
+
 ## v1.1.1 / 19 Sep 2016
 * Fixed typings installation location in documentation.
 
@@ -35,10 +38,10 @@
   it is ready to be used as a synchronous function.
 
 ## v0.7.0 / 11 Jan 2015
-* From now on, `tartare` package contains only the framework functionality, while the rest of goodies are spread among 
+* From now on, `tartare` package contains only the framework functionality, while the rest of goodies are spread among
   the new packages `tartare-util`, `tartare-collections`, `tartare-mock`, `tartare-chai` and `tartare-logs`.
-* Tartare is now fully compatible with [Protractor](http://angular.github.io/protractor). Until the `tartare` branch 
-  in the `telefonicaid` fork is merged into Protractor upstream, get Protractor from 
+* Tartare is now fully compatible with [Protractor](http://angular.github.io/protractor). Until the `tartare` branch
+  in the `telefonicaid` fork is merged into Protractor upstream, get Protractor from
   [here](https://github.com/telefonicaid/protractor/tree/tartare).
   - There is a new global function called `promisize` that wraps all functions exported by a module to convert them
     into WebDriver promises, and enqueue them in the WebDriver Control Flow, so they can be used in the same way
@@ -46,7 +49,7 @@
 * From now on, Tartare can be used programmatically, instantiating a Tartare object, and gaining control over the
   tests execution.
   You can pass an object to the Tartare constructor with the following options:
-  - `reporter`: Choose between the console reporter (`gherkin`) or the markdown reporter (`gherkin-md`). 
+  - `reporter`: Choose between the console reporter (`gherkin`) or the markdown reporter (`gherkin-md`).
     Default: `gherkin`.
   - `timeout`: Set test timeout in milliseconds. Default: `10000`.
   - `filter`: Run only tests matching the filter.
@@ -54,10 +57,10 @@
   - `useColors`: Set whether colors can be used on console reporters. Default: `true`.
   - `enableTimeouts`: Enable timeouts. Default: `true`.
   - Any other options will be available through the `getTartareOptions` function.
-  
+
   You can access to the underlying Mocha object through `tartare.mocha`.
-  
-  
+
+
 ```javascript
 var Tartare = require('tartare');
 
@@ -95,22 +98,22 @@ tartare.run(function(failures) {
     - Tag variants by adding a `tag` property to the dataset object:
       `dataset = { desc: 'my 1st variant', tag: 'mytag', ... };`
     - See `tartare -h` for more info about filtering.
-* To use Tartare and the filtering functionality with [Protractor](http://angular.github.io/protractor), 
+* To use Tartare and the filtering functionality with [Protractor](http://angular.github.io/protractor),
   use a `mochaOpts` object such as the following in your `conf.js` file:
-  
+
 ```javascript
-    mochaOpts: { 
-      reporter: ('tartare/gherkin'), 
+    mochaOpts: {
+      reporter: ('tartare/gherkin'),
       grep: 'tartare: +mytag'  // Note that the filter string must be prefixed by 'tartare: '
     }
 ```
 
-* New modifiers have been added to Tartare's keywords (feature, scenario, given, when, and, then) 
+* New modifiers have been added to Tartare's keywords (feature, scenario, given, when, and, then)
   that change their behaviour.
   The full set of modifiers is the following:
-    - `.only`: Restrict the execution to only those features/scenarios having this modifier. 
+    - `.only`: Restrict the execution to only those features/scenarios having this modifier.
     - `.skip`: Make this feature/scenario/step as nonexistent, nor being shown on reports or counted on stats.
-    - `.manual`: Mark this feature/scenario/step as manual, meaning that the test execution is out of Tartare's scope. 
+    - `.manual`: Mark this feature/scenario/step as manual, meaning that the test execution is out of Tartare's scope.
       They will be shown with a different style in the report.
       Using this modifier is equivalent to not providing a function when defining the feature/scenario/step.
     - `.manual.skip`: The same than `.skip` for manual features/scenarios/steps.
@@ -122,38 +125,38 @@ tartare.run(function(failures) {
 
 ```javascript
     scenario.manual('This is a manual scenario', function() {
-    
+
     });
-  
+
     dataset = [
-      { manual: true, desc: 'This is a manual variant' } 
+      { manual: true, desc: 'This is a manual variant' }
     ];
 ```
-     
+
  * A couple of new methods have been added to features/scenarios in order to make easier bug monitoring:
      - `.minorBug(bugId)`: Used for features/scenarios that are somehow buggy but you don't want the report
        to shown them as buggy. This method prevents the feature/scenario from being executed
        (to avoid triggering the bug) and will show the bug id next to the title. They count as passed in stats.
      - `.majorBug(bugId)`: Used for marking features/scenarios as buggy. They are executed showing the bug id next
-       to the title, and are counted as failed in stats. 
-      
+       to the title, and are counted as failed in stats.
+
    Variants can also use these features by adding a field with the method name and the bug id as value
-   to the variant objects in the dataset array. 
-   
+   to the variant objects in the dataset array.
+
    If you provide a parameter named `--bugid-link` to Tartare command line, bug ids will be shown as links using
    that parameter value as a template where the string '%s' will be replaced by the bug id. This can be useful
    to link with some bug tracking system. If no '%s' placeholder is provided, the bug id will be added to the end
    of the provided link.
-   
+
    Both methods set a tag named 'bug' so you use it to filter tests execution.
-      
+
 ```javascript
     scenario('This is a buggy scenario', function() {
-    
+
     }).majorBug('my-bug-id');
-  
+
     dataset = [
-      { minorBug: 'my-bug-id', desc: 'This is a variant with a minor bug' } 
+      { minorBug: 'my-bug-id', desc: 'This is a variant with a minor bug' }
     ];
 ```
 

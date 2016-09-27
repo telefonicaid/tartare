@@ -1,3 +1,13 @@
+<a name="1.1.2"></a>
+## [1.1.2](https://github.com/telefonicaid/tartare/compare/v1.1.1...v1.1.2) (2016-09-27)
+
+
+### Bug Fixes
+
+* Improve TypeScript declarations ([29980ce](https://github.com/telefonicaid/tartare/commit/29980ce))
+
+
+
 <a name="1.1.1"></a>
 ## [1.1.1](https://github.com/telefonicaid/tartare/compare/v1.1.0...v1.1.1) (2016-09-19)
 
