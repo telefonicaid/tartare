@@ -8,6 +8,7 @@
   "bin": {
     "tartare": "./bin/tartare"
   },
+  "typings": "lib/tartare.d.ts",
   "scripts": {
     "lint": "eslint index.js bin lib && tslint ./lib/tartare.d.ts ./test/*.ts --type-check --project ./tsconfig.json",
     "changelog": "conventional-changelog --preset jshint --infile CHANGELOG.md --same-file",
@@ -47,7 +48,7 @@
     "release-it": "^2.4.3",
     "ts-node": "^1.3.0",
     "tslint": "^3.15.1",
-    "tslint-config-typings": "^0.2.3",
-    "typescript": "^1.8.10"
+    "tslint-config-typings": "^0.2.4",
+    "typescript": "^2.0.3"
   }
 }

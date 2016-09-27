@@ -11,12 +11,14 @@
 
 ---
 
-Tartare is a JavaScript testing framework which uses 
-[BDD/Gherkin](http://en.wikipedia.org/wiki/Behavior-driven_development#Behavioural_specifications) 
-and [DDT] (http://en.wikipedia.org/wiki/Data-driven_testing) to describe your tests. 
+![TypeScript definition](https://img.shields.io/badge/TypeScript%20Definition-%E2%9C%93-blue.svg)
+
+Tartare is a JavaScript testing framework which uses
+[BDD/Gherkin](http://en.wikipedia.org/wiki/Behavior-driven_development#Behavioural_specifications)
+and [DDT] (http://en.wikipedia.org/wiki/Data-driven_testing) to describe your tests.
 It is fully **code driven** since all your testing stuff is in your code.
 
-Tartare is based on the popular [Mocha](http://mochajs.org/) framework providing you with a new Gherkin *ui* and 
+Tartare is based on the popular [Mocha](http://mochajs.org/) framework providing you with a new Gherkin *ui* and
 a couple of Gherkin *reporters*, among other goodies.
 
 
@@ -53,8 +55,8 @@ $ npm install -g tartare
 
 
 ## Describe your tests
-When using Gherkin to describe tests, each test is called a **scenario**, and several related *scenarios* are grouped 
-inside a **feature**. Then those *scenarios* are described in term of its pre-conditions, the event that triggers 
+When using Gherkin to describe tests, each test is called a **scenario**, and several related *scenarios* are grouped
+inside a **feature**. Then those *scenarios* are described in term of its pre-conditions, the event that triggers
 the test, and the expected outcomes or post-conditions. Pre-conditions are described with the **given** keyword,
 while events and post-conditions are described with the keywords **when** and **then**, respectively. You can also
 use the keywords **and** and **but** if your test needs more than one pre-condition, event, or post-condition.
@@ -86,15 +88,15 @@ function. Those all arguments may be used to give more information about the *fe
 to the *feature*, o some kind of additional information.
 
 ```javascript
-feature('Addition', 
+feature('Addition',
         'In order to avoid mistakes',
         'As a user that needs to do math calculations',
         'I want to be helped out to calculate additions',
         function() {
   scenario('Add two natural numbers', function() {
-  
+
     [...]
-    
+
   });
 });
 ```
@@ -102,7 +104,7 @@ feature('Addition',
 ### Filling in the steps
 It's time to tell your *steps* what to do. Simply write your code inside each *step* function.
 
-It is not a good idea to put a lot of code inside each *step*. For the sake of clarity it is always better 
+It is not a good idea to put a lot of code inside each *step*. For the sake of clarity it is always better
 to put your complex code in a separated module, exporting the needed functions, and using them from the
 main test file. Let's call this module your **step library**.
 
@@ -118,7 +120,7 @@ feature('Addition', function() {
     });
 
     [...]
-    
+
   });
 });
 ```
@@ -137,7 +139,7 @@ feature('Addition', function() {
     });
 
     [...]
-    
+
   });
 });
 ```
@@ -159,7 +161,7 @@ feature('Addition', function() {
     });
 
     [...]
-    
+
   });
 });
 ```
@@ -179,14 +181,14 @@ feature('Addition', function() {
     });
 
     [...]
-    
+
   });
 });
 ```
 
 Note that the wrapped functions can still be invoked asynchronously if called with a callback.
 
-If you include synchronous functions in your *step library*, prevent `synchronize` from being applied to them 
+If you include synchronous functions in your *step library*, prevent `synchronize` from being applied to them
 by adding an attribute named `dontSync` with a truthy value.
 
 ```javascript
@@ -213,7 +215,7 @@ $ tartare --recursive tests
 ```
 
 Tartare will run your tests writing to the console a coloured output that shows the descriptions of the *features*,
-*scenarios* and *steps*, the execution duration at several levels, and a summary with some stats and metrics 
+*scenarios* and *steps*, the execution duration at several levels, and a summary with some stats and metrics
 about your test suite.
 
 ![Gherkin reporter output](http://telefonicaid.github.io/tartare/img/gherkin-reporter.png)
@@ -226,9 +228,9 @@ The concept of Data Driven Testing basically means that a single *scenario* is e
 different input data. In our calculator example, we could run the *scenario* to test the *Add* function with
 different numbers.
 
-Tartare *scenarios* accept an extra argument with the set of data to be used in each *scenario* execution. 
+Tartare *scenarios* accept an extra argument with the set of data to be used in each *scenario* execution.
 This argument must be an array of objects, each one containing the properties to be used in each *scenario* execution.
-Each one of these objects is named a **Variant**. 
+Each one of these objects is named a **Variant**.
 Then the *scenario* function will be invoked as many times as there are *variants* in the array, passing the *variant*
 object to the *scenario* function as an argument.
 
@@ -251,7 +253,7 @@ feature('Addition', function() {
     });
 
     [...]
-    
+
   });
 });
 ```
@@ -264,7 +266,7 @@ Such a *scenario* produces the following output when the test suite is run:
 ## Hooks
 **Hooks** are useful to set up and tear down your tests. Sometimes you need things to happen but it makes no sense
 to take part of the *steps*. For example, you may need to start the [SUT](http://en.wikipedia.org/wiki/System_under_test)
-but it makes no sense to put it as part of a *given step*, and it only need to be done once at the beginning 
+but it makes no sense to put it as part of a *given step*, and it only need to be done once at the beginning
 of the *feature*. The following is the list of the available *hooks* and where can they be used:
 
 | *Hook* name                            | Usage                                     |
@@ -283,7 +285,7 @@ var steps = require('./steps-library');
 
 feature('Addition', function() {
   beforeFeature(function(done) {
-    steps.startCalculator(done);  
+    steps.startCalculator(done);
   });
 
   scenario('Add two natural numbers', function() {
@@ -292,11 +294,11 @@ feature('Addition', function() {
     });
 
     [...]
-    
+
   });
-  
+
   afterFeature(function() {
-    steps.closeCalculator();  
+    steps.closeCalculator();
   });
 });
 ```
@@ -312,11 +314,11 @@ executed. It uses different symbols and colours for passed and failed *steps*, a
 *steps*, *variants*, *scenarios*, *features*, and the whole suite to be executed.
 
 At the end it prints some stats about the *features*, *scenarios*, *variants* and *steps* your suite has, and how many
-of them have passed or failed, or how many are marked as [manual](#manual-tests). It also gives you some metrics 
-about your suite. Keep in mind that *features* having the same description are counted as the same *feature*. 
+of them have passed or failed, or how many are marked as [manual](#manual-tests). It also gives you some metrics
+about your suite. Keep in mind that *features* having the same description are counted as the same *feature*.
 This means that you can split *features* without affecting the stats.
 
-In the case that some *steps* have failed (due to runtime errors or unfulfilled assertions), this reporter prints 
+In the case that some *steps* have failed (due to runtime errors or unfulfilled assertions), this reporter prints
 the list of failures together with their details. When an assertions fails, the exact output depends on the
 assertions library you have used.
 
@@ -324,8 +326,8 @@ Finally, this reporter prints some warnings about *variants* that are marked as 
 *variants* that are failing but are not marked as bugs, just to help you to [manage your bugs](#bug-management).
 
 Note that this reporter can use two colour themes: one for consoles with a dark background, and another one
-for clear backgrounds. You can set the theme to be used setting the value `dark` or `clear` to the 
-`TARTARE_THEME` environment variable, or by passing the `--theme` argument to the CLI. 
+for clear backgrounds. You can set the theme to be used setting the value `dark` or `clear` to the
+`TARTARE_THEME` environment variable, or by passing the `--theme` argument to the CLI.
 Tartare defaults to the dark theme.
 
 ```bash
@@ -357,7 +359,7 @@ But you can use the `output` reporter option to set the file where the report wi
 $ tartare tests.js --reporter gherkin-md --reporter-options output=report.md
 ```
 
-You can also use the `bugidLink` reporter option to set the base URL of your bug tracking system 
+You can also use the `bugidLink` reporter option to set the base URL of your bug tracking system
 (see [Bug Management](#bug-management) below):
 
 ```bash
@@ -373,13 +375,13 @@ You can mark *features* or *scenarios* to be executed alone by using `.only`.
 feature.only('Addition', function() {
 
     [...]
-    
+
 });
 
 feature('Multiplication', function() {
 
     [...]
-    
+
 });
 ```
 
@@ -390,12 +392,12 @@ feature('Addition', function() {
   scenario('Add two natural numbers', function() {
 
     [...]
-    
+
   });
   scenario.only('Add two real numbers', function() {
-  
+
     [...]
-      
+
   });
 });
 ```
@@ -413,7 +415,7 @@ feature('Addition', function() {
   scenario('Add two natural numbers', dataset, function(variant) {
 
     [...]
-    
+
   });
 });
 ```
@@ -434,12 +436,12 @@ feature('Addition', function() {
   scenario('Add two natural numbers', dataset, function(variant) {
 
     [...]
-    
+
   });
   scenario.skip('Add two real numbers', function() {
-    
+
     [...]
-        
+
   });
 });
 ```
@@ -472,12 +474,12 @@ feature('Addition', function() {
   scenario('Add two natural numbers', dataset, function(variant) {
 
     [...]
-    
+
   });
   scenario.manual('Add two real numbers', function() {
-    
+
     [...]
-        
+
   });
 });
 ```
@@ -497,7 +499,7 @@ want to track the bug. In those cases, mark the test as a minor bug and, in addi
 it won't be executed (to avoid the failure) and will count as passed on stats. Hooks belonging to a test marked as
 minor bug won't be executed either.
 
-To mark *features* and *scenarios* as bugs, use the methods `majorBug('bugId')` or `minorBug('bugId')` where `bugId` 
+To mark *features* and *scenarios* as bugs, use the methods `majorBug('bugId')` or `minorBug('bugId')` where `bugId`
 is a string.
 
 ```javascript
@@ -505,12 +507,12 @@ feature('Addition', function() {
   scenario('Add two natural numbers', function() {
 
     [...]
-    
+
   }).majorBug('id-359');
   scenario('Add two real numbers', function() {
-    
+
     [...]
-        
+
   }).minorBug('id-459');
 });
 ```
@@ -527,12 +529,12 @@ feature('Addition', function() {
   scenario('Add two natural numbers', dataset, function(variant) {
 
     [...]
-    
+
   });
 });
 ```
 
-When using the [markdown reporter](#gherkin-md) you can pass the `bugidLink` reporter option with the base URL of 
+When using the [markdown reporter](#gherkin-md) you can pass the `bugidLink` reporter option with the base URL of
 your bug tracking system, so the bug ids will be links formed by appending the bug id passed to the
 `majorBug`/`minorBug` functions to the base url. If such a base url has the `%s` placeholder,
 the bug id will be placed there.
@@ -546,7 +548,7 @@ You can assign *features*, *scenarios* and *variants* with tags, understood as s
 to organize, categorize, or whatever your tests. The goal of tagging tests is to use filters in order to
 select tests to be executed. Using `only` is a very simple way of filtering, but tags gives you more choices.
 
-Assign tags to *features* or *scenarios* by using the method `tag(tags)` where `tags` can be a string, 
+Assign tags to *features* or *scenarios* by using the method `tag(tags)` where `tags` can be a string,
 an array of strings, or several string arguments, allowing you to assign more that one tag. To assign tags
 to a *variant*, include the `tag` property whose value can be a string or an array of strings.
 
@@ -559,12 +561,12 @@ feature('Addition', function() {
   scenario('Add two natural numbers', dataset, function(variant) {
 
     [...]
-    
+
   }).tag('smoke');
   scenario('Add two real numbers', function() {
-    
+
     [...]
-        
+
   }).tag('smoke', 'new');
 });
 ```
@@ -629,8 +631,8 @@ $ tartare tests.js --filter -bug
 ```
 
 #### -r, --require
-This option is useful to load modules before executing the test suite. Since the required modules are not 
-assigned to any variable, it works with modules that modify prototypes or add properties to the 
+This option is useful to load modules before executing the test suite. Since the required modules are not
+assigned to any variable, it works with modules that modify prototypes or add properties to the
 `global` object.
 
 #### -R, --reporter
@@ -659,7 +661,7 @@ reporting all the failures at the end, use this option.
 
 ## Changing the timeout programmatically
 If you need to change the timeout passed through the `-t, --timeout` argument for a specific *feature*, *scenario*,
-*step*, or *hook*, invoke `this.timeout(20000)` passing the new timeout in milliseconds. 
+*step*, or *hook*, invoke `this.timeout(20000)` passing the new timeout in milliseconds.
 
 ```javascript
 feature('Addition', function() {
@@ -670,7 +672,7 @@ feature('Addition', function() {
     });
 
     [...]
-    
+
   });
 });
 ```
@@ -679,16 +681,16 @@ Your can also get the current timeout invoking `this.timeout()`.
 
 ## Other goodies
 Tartare augments the `String` and `RegExp` objects with useful methods not available in ECMAScript 5:
-* `String.prototype.startsWith(substr [, position])`: determines whether a string begins with the characters 
+* `String.prototype.startsWith(substr [, position])`: determines whether a string begins with the characters
   of another string, returning `true` or `false`, beginning at the provided position (defaults to 0).
-* `String.prototype.endsWith(substr [, position])`: determines whether a string ends with the characters 
+* `String.prototype.endsWith(substr [, position])`: determines whether a string ends with the characters
   of another string, returning `true` or `false`. If a position is provided, the string will be considered
   to have that length.
-* `String.prototype.repeat(count)`: Returns a string which contains the the specified number of copies of the 
+* `String.prototype.repeat(count)`: Returns a string which contains the the specified number of copies of the
   string on which it was called.
 * `RegExp.escape(str)`: Returns the string passed as argument where each character that has a special meaning
   in a regular expression has been escaped (preceded by `\`).
-  
+
 So when using Tartare you can do the following:
 
 ```javascript
@@ -711,30 +713,30 @@ Tartare provides you with some handy global functions:
 
 * `getTartareOptions([optionName])`: Every argument passed to the Tartare CLI that is not recognized by Tartare as
   an own option can be queried using this function, or if it is called without arguments an object containing all
-  the options is returned. It also works for environment variables starting with `TARTARE_`. CLI arguments are 
+  the options is returned. It also works for environment variables starting with `TARTARE_`. CLI arguments are
   converted to its lowerCamelCase form, removing the leading hyphens, while environment variables starting with
   TARTARE_ are converted to its lowerCamelCase form, removing the leading TARTARE_ and considering each underscore
   as a word separator. Thus the following options are equivalent and their values can be retrieved by invoking
   `getTartareOptions('myCoolVariable')`:
-  
+
 ```bash
 $ TARTARE_MY_COOL_VARIABLE=foo tartare tests.js
 $ tartare tests.js --my-cool-variable foo
 ```
 
 * `synchronize(module)`: As explained [above](#filling-in-the-steps), this function wraps the functions exported by
-  a module so they can be invoked as synchronous functions from inside *steps* and *hooks* (they can still be invoked 
-  as asynchronous functions if invoked with a callback). It only works with function following the CPS pattern 
-  (with a callback as the last argument) and you can prevent a function from being "synchronized" by adding a 
+  a module so they can be invoked as synchronous functions from inside *steps* and *hooks* (they can still be invoked
+  as asynchronous functions if invoked with a callback). It only works with function following the CPS pattern
+  (with a callback as the last argument) and you can prevent a function from being "synchronized" by adding a
   property named `dontSync` with a truthy value to the function.
-  
+
 * `promisize(module)`: this function wraps the functions exported by a module into a promise and insert them
-  into the Selenium Control Flow. See more about using Tartare with Protractor and Selenium 
+  into the Selenium Control Flow. See more about using Tartare with Protractor and Selenium
   [here](#testing-web-apps-with-tartare--protractor).
-  It only works with function following the CPS pattern and you can prevent a function from being 
+  It only works with function following the CPS pattern and you can prevent a function from being
   "promisized" by adding a property named `dontPromisize` with a truthy value to the function.
-  
-  
+
+
 ## Using Tartare programmatically
 In addition to running Tartare from the command line, you can also use it programmatically.
 
@@ -817,7 +819,7 @@ Protractor Tartare Framework. You can also pass options to Tartare with `tartare
 
 In order to make easier the usage of functions following the CPS pattern (with a callback) when using Protractor,
 Tartare provides you with the `promisize` function. This function, when applied to a module, wraps all the
-exported functions into promises and insert them into the 
+exported functions into promises and insert them into the
 [WebDriver Control Flow](https://angular.github.io/protractor/#/control-flow).
 
 Consider you have a module with a exported CPS function:
@@ -851,7 +853,7 @@ feature('Addition', function() {
 });
 ```
 
-You can prevent `promisize` from being applied to a function by adding an attribute named `dontPromisize` 
+You can prevent `promisize` from being applied to a function by adding an attribute named `dontPromisize`
 with a truthy value.
 
 ```javascript
@@ -888,11 +890,17 @@ expect(myPromise.get('list.1')).to.eventually.equal('foo');
 ```
 
 ## Using Tartare with TypeScript
-To use Tartare with TypeScript you have to install Tartare's typings as a global dependency, so the compiler
-is able to find types for the Tartare's global functions (feature, scenario, given, when, getTartareOptions, etc.).
+To use Tartare with TypeScript you have to tell the compiler where to find the Tartare's declarations for the global
+functions (feature, scenario, given, when, getTartareOptions, etc.).
+Your can do it by including the following directive in a `.ts` file:
+
+```ts
+/// <reference types="tartare" />
+```
+
+Or your can install Tartare's typings as a global dependency using [typings](https://github.com/typings/typings):
 
 ```bash
-$ npm install tartare
 $ npm install typings
 
 $ node_modules/.bin/typings install github:telefonicaid/tartare#vX.Y.Z --global
