@@ -35,6 +35,10 @@ interface SpecFunction {
     (): void;
 }
 
+interface SpecWithVariantFunction {
+    (variant: Tartare.Variant): void;
+}
+
 interface ActionFunction {
     (done: DoneFunction): any | PromiseLike<any>;
 }
@@ -145,16 +149,16 @@ declare namespace Tartare {
 
     interface ScenarioDefinition {
         (title: string, spec?: SpecFunction): Suite;
-        (title: string, dataset: Variant[], spec: SpecFunction): Suite;
+        (title: string, dataset: Variant[], spec: SpecWithVariantFunction): Suite;
         only(title: string, spec?: SpecFunction): Suite;
-        only(title: string, dataset: Variant[], spec: SpecFunction): Suite;
+        only(title: string, dataset: Variant[], spec: SpecWithVariantFunction): Suite;
         skip(title: string, spec?: SpecFunction): Suite;
-        skip(title: string, dataset: Variant[], spec: SpecFunction): Suite;
+        skip(title: string, dataset: Variant[], spec: SpecWithVariantFunction): Suite;
         manual: {
             (title: string, spec?: SpecFunction): Suite;
-            (title: string, dataset: Variant[], spec: SpecFunction): Suite;
+            (title: string, dataset: Variant[], spec: SpecWithVariantFunction): Suite;
             skip(title: string, spec?: SpecFunction): Suite;
-            skip(title: string, dataset: Variant[], spec: SpecFunction): Suite;
+            skip(title: string, dataset: Variant[], spec: SpecWithVariantFunction): Suite;
         };
     }
 

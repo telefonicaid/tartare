@@ -1,6 +1,7 @@
 test/
 node_modules/
 .idea/
+.vscode/
 .gitignore
 .npmignore
 .eslintrc.json
