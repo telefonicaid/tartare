@@ -1,3 +1,13 @@
+<a name="1.1.3"></a>
+## [1.1.3](https://github.com/telefonicaid/tartare/compare/v1.1.2...v1.1.3) (2016-10-03)
+
+
+### Bug Fixes
+
+* TypeScript declarations do not support the variant argument in scenarios ([288e676](https://github.com/telefonicaid/tartare/commit/288e676))
+
+
+
 <a name="1.1.2"></a>
 ## [1.1.2](https://github.com/telefonicaid/tartare/compare/v1.1.1...v1.1.2) (2016-09-27)
 

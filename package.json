@@ -1,6 +1,6 @@
 {
   "name": "tartare",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "Gherkin-like BDD testing framework for JavaScript based on Mocha",
   "license": "Apache-2.0",
   "author": "Jose Antonio Rodríguez Fernández <joseantonio.rodriguezfernandez@telefonica.com>",

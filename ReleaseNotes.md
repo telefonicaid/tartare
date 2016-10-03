@@ -1,5 +1,8 @@
 # RELEASE NOTES
 
+## v1.1.3 / 3 Oct 2016
+* Fixed TypeScript declarations to support the variant argument in scenario's spec functions.
+
 ## v1.1.2 / 27 Sep 2016
 * Improved TypeScript declarations.
 
