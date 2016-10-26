@@ -32,6 +32,7 @@ a couple of Gherkin *reporters*, among other goodies.
 - [Reporters](#reporters)
   - [gherkin](#gherkin)
   - [gherkin-md](#gherkin-md)
+  - [external](#external-reporter)
 - [Running only selected tests](#running-only-selected-tests)
 - [Skipping tests](#skipping-tests)
 - [Manual tests](#manual-tests)
@@ -307,6 +308,7 @@ feature('Addition', function() {
 Tartare comes with two reporters:
 * **gherkin**: a console reporter that outputs a coloured description of your *features*, *scenarios* and *steps*.
 * **gherkin-md**: a Markdown reporter to upload the test description and results to GitHub.
+* **external**: plugin external mocha compatible reporter
 
 ### gherkin
 This is the default reporter. It prints the *feature*, *scenario* and *step* descriptions while they are being
@@ -367,6 +369,11 @@ $ tartare tests.js --reporter gherkin-md --reporter-options output=report.md,bug
 ```
 
 ![Markdown reporter output](http://telefonicaid.github.io/tartare/img/markdown-reporter.png)
+
+### external
+In addition to that you can plugin your own custom reporter as well.
+Simply set the useExternalReporter : true in tartareOpts in the config.
+
 
 ## Running only selected tests
 You can mark *features* or *scenarios* to be executed alone by using `.only`.
