@@ -27,11 +27,6 @@ var Tartare = require('..');
 var fs = require('fs');
 var path = require('path');
 
-var supportedReporters = {
-  'gherkin': 'outputs coloured Gherkin syntax',
-  'gherkin-md': 'outputs Gherkin syntax in Markdown format'
-};
-
 function _printHelp() {
   console.log('\n  Usage: tartare [options] [files]');
   console.log('\n  Options:\n');
@@ -73,8 +68,8 @@ function _printVersion() {
 
 function _printReporters() {
   console.log('\n  Tartare reporters:\n');
-  Object.keys(supportedReporters).forEach(function(reporter) {
-    console.log('    ' + reporter + ' - ' + supportedReporters[reporter]);
+  Object.keys(Tartare.builtinReporters).forEach(function(reporter) {
+    console.log('    ' + reporter + ' - ' + Tartare.builtinReporters[reporter]);
   });
   console.log();
   process.exit(0);
@@ -114,11 +109,6 @@ for (var i = 2; i < process.argv.length; i++) {
     case '--reporter':
       opts.reporter = process.argv[++i];
       opts.reporter = opts.reporter || 'gherkin';
-      if (!supportedReporters[opts.reporter]) {
-        console.error('\nUnsupported reporter "' + opts.reporter + '". Valid reporters are: ' +
-            Object.keys(supportedReporters).join(', ') + '\n');
-        process.exit(-1);
-      }
       break;
     case '-O':
     case '--reporter-options':
