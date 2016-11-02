@@ -138,6 +138,7 @@ declare namespace Tartare {
     }
 
     interface Variant {
+        [field: string]: any;
         desc?: string;
         only?: boolean;
         skip?: boolean;
