@@ -1,5 +1,9 @@
 # RELEASE NOTES
 
+## v1.2.0 / 2 Nov 2016
+* Added support for third party reporters ([@sumeet70](https://github.com/sumeet70)).
+* Fixed TypeScript declarations to support any field in the variant interface.
+
 ## v1.1.3 / 3 Oct 2016
 * Fixed TypeScript declarations to support the variant argument in scenario's spec functions.
 

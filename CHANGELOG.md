@@ -1,3 +1,17 @@
+<a name="1.2.0"></a>
+# [1.2.0](https://github.com/telefonicaid/tartare/compare/v1.1.3...v1.2.0) (2016-11-02)
+
+
+### Bug Fixes
+
+* Support any field in the Typescript declaration of the Variant interface ([c90e9c1](https://github.com/telefonicaid/tartare/commit/c90e9c1))
+
+### Features
+
+* Add support for third party reporters ([@sumeet70](https://github.com/sumeet70)) ([ddba1ab](https://github.com/telefonicaid/tartare/commit/ddba1ab))
+
+
+
 <a name="1.1.3"></a>
 ## [1.1.3](https://github.com/telefonicaid/tartare/compare/v1.1.2...v1.1.3) (2016-10-03)
 
