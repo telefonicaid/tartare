@@ -1,5 +1,8 @@
 # RELEASE NOTES
 
+## v1.2.1 / 7 Apr 2017
+* Fixed a bug that prevented built-in reporters from being loaded on Windows ([@kjwenger](https://github.com/kjwenger)).
+
 ## v1.2.0 / 2 Nov 2016
 * Added support for third party reporters ([@sumeet70](https://github.com/sumeet70)).
 * Fixed TypeScript declarations to support any field in the variant interface.

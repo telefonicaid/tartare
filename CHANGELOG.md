@@ -1,3 +1,13 @@
+<a name="1.2.1"></a>
+## [1.2.1](https://github.com/telefonicaid/tartare/compare/v1.2.0...v1.2.1) (2017-04-07)
+
+
+### Bug Fixes
+
+* Built-in reporters are not being loaded on Windows (Fixes #38) ([bea24fa](https://github.com/telefonicaid/tartare/commit/bea24fa)), closes [#38](https://github.com/telefonicaid/tartare/issues/38)
+
+
+
 <a name="1.2.0"></a>
 # [1.2.0](https://github.com/telefonicaid/tartare/compare/v1.1.3...v1.2.0) (2016-11-02)
 
