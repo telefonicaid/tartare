@@ -84,7 +84,7 @@ feature('Addition', function() {
 });
 ```
 
-The `feature` function accepts a variable number of string arguments between the *feature* description an the
+The `feature` function accepts a variable number of string arguments between the *feature* description and the
 function. Those all arguments may be used to give more information about the *feature*, such as the User Story related
 to the *feature*, o some kind of additional information.
 
@@ -126,7 +126,7 @@ feature('Addition', function() {
 });
 ```
 
-If you code is asynchronous, add a callback function (usually named `done`) to the *step* function, and invoke
+If your code is asynchronous, add a callback function (usually named `done`) to the *step* function, and invoke
 that callback when the *step* is complete. This callback understand the common `(err, res)` pattern so it can
 be directly used as your function's callback.
 
