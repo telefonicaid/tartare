@@ -904,18 +904,18 @@ Tartare comes with bundled typings. You just need to write your tests like so:
 ```ts
 import 'tartare';
 
-feature('Addition', function() {
-  scenario('Add two natural numbers', function() {
-    given('I have entered 50 into the calculator', function() {
+feature('Addition', () => {
+  scenario('Add two natural numbers', () => {
+    given('I have entered 50 into the calculator', () => {
 
     });
-    and('I have entered 70 into the calculator', function() {
+    and('I have entered 70 into the calculator', () => {
 
     });
-    when('I press add', function() {
+    when('I press add', () => {
 
     });
-    then('the result should be 120 on the screen', function() {
+    then('the result should be 120 on the screen', () => {
 
     });
   });
