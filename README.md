@@ -897,21 +897,35 @@ Now you want to make an assertion over the second element of the `list` property
 expect(myPromise.get('list.1')).to.eventually.equal('foo');
 ```
 
-## Using Tartare with TypeScript
-To use Tartare with TypeScript you have to tell the compiler where to find the Tartare's declarations for the global
-functions (feature, scenario, given, when, getTartareOptions, etc.).
-Your can do it by including the following directive in a `.ts` file:
+## Using Tartare with TypeScript  
+
+Tartare comes with bundled typings. You just need to write your tests like so:
 
 ```ts
-/// <reference types="tartare" />
+import 'tartare';
+
+feature('Addition', function() {
+  scenario('Add two natural numbers', function() {
+    given('I have entered 50 into the calculator', function() {
+
+    });
+    and('I have entered 70 into the calculator', function() {
+
+    });
+    when('I press add', function() {
+
+    });
+    then('the result should be 120 on the screen', function() {
+
+    });
+  });
+});
 ```
 
-Or your can install Tartare's typings as a global dependency using [typings](https://github.com/typings/typings):
+Since tartare has the same interface as mocha simply add [`-r ts-node/register`](https://github.com/TypeStrong/ts-node) as an option to compile typescript on the fly.
 
 ```bash
-$ npm install typings
-
-$ node_modules/.bin/typings install github:telefonicaid/tartare#vX.Y.Z --global
+$ tartare -r ts-node/register my-test.ts
 ```
 
 ---
