@@ -898,7 +898,6 @@ expect(myPromise.get('list.1')).to.eventually.equal('foo');
 ```
 
 ## Using Tartare with TypeScript  
-
 Tartare comes with bundled typings. You just need to write your tests like so:
 
 ```ts
@@ -922,10 +921,12 @@ feature('Addition', () => {
 });
 ```
 
-Since tartare has the same interface as mocha simply add [`-r ts-node/register`](https://github.com/TypeStrong/ts-node) as an option to compile typescript on the fly.
+You can use Tartare along with [ts-node](https://github.com/TypeStrong/ts-node) in order to
+compile TypeScript on the fly. Install ts-node as a dependency and run Tartare with the flag
+`--require ts-node/register`.
 
 ```bash
-$ tartare -r ts-node/register my-test.ts
+$ tartare --require ts-node/register calculator-tests.ts
 ```
 
 ---
